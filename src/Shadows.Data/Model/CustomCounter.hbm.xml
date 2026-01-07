@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="CustomCounter" table="CustomCounter" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="IdCharacter" column="IdCharacter" />
+    <property name="Caption" column="Caption" />
+    <property name="ActualValue" column="ActualValue" />
+    <property name="MaxValue" column="MaxValue" />
+    <property name="Color" column="Color" />
+    <property name="Ordering" column="Ordering" />
+  </class>
+</hibernate-mapping>

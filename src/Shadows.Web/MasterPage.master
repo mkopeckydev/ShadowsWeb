@@ -1,0 +1,138 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Stíny nad pevninou</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="Styles/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="Styles/app.css" rel="stylesheet" type="text/css" media="all" />
+
+    <script src="Scripts/jquery-3.7.1.min.js"></script>
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
+    <script src="Scripts/app.js" type="text/javascript"></script>
+</head>
+<body>
+    <form id="frmMain" runat="server">
+
+        <asp:ScriptManager ID="tsmMaster" EnableScriptGlobalization="true" EnableScriptLocalization="true" EnablePartialRendering="true" runat="server"></asp:ScriptManager>
+
+        <nav class="navbar m-2">
+            <div class="container-fluid">
+                <button class="btn btn-outline-dark me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+                    ☰ Menu
+                </button>
+                <div class="navbar-brand mb-0 h1 fs-6 float-end">
+                    <asp:Label ID="lblLoggedInfoName" runat="server" Text="..." Font-Bold="true"></asp:Label>
+                    <asp:Label ID="lblLoggedInfoClass" runat="server" Text="..."></asp:Label>
+                    <asp:Label ID="lblLoggedInfoClass2" runat="server" Text="..."></asp:Label>
+                    <asp:LinkButton ID="btnLogout" runat="server" Text="Odhlásit" OnClick="btnLogout_Click" />
+                </div>
+            </div>
+        </nav>
+
+        <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="sidebarLabel">Stíny nad pevninou</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Zavřít"></button>
+            </div>
+            <div class="offcanvas-body">
+                <nav class="nav flex-column">
+                    <asp:HyperLink ID="hlCreaturesMenu" runat="server" NavigateUrl="~/Default.aspx" CssClass="nav-link fs-6">
+                        <asp:Image ID="imgCreaturesMenu" runat="server" ImageUrl="~/Images/creatures.png" CssClass="nav-link-image" />Knihovna
+                    </asp:HyperLink>
+                    <asp:HyperLink ID="hlSpellbookMenu" runat="server" NavigateUrl="~/Spellbook.aspx" CssClass="nav-link fs-6">
+                        <asp:Image ID="imgSpellbookMenu" runat="server" ImageUrl="~/Images/spelbook.png" CssClass="nav-link-image" />Kniha kouzel
+                    </asp:HyperLink>
+                    <asp:HyperLink ID="hlFilesMenu" runat="server" NavigateUrl="~/Files.aspx" CssClass="nav-link fs-6">
+                        <asp:Image ID="imgFilesMenu" runat="server" ImageUrl="~/Images/files.png" CssClass="nav-link-image" />Soubory ke stažení
+                    </asp:HyperLink>
+                    <asp:HyperLink ID="hlToolsMenu" runat="server" NavigateUrl="~/UserTools.aspx" CssClass="nav-link fs-6">
+                        <asp:Image ID="imgToolsMenu" runat="server" ImageUrl="~/Images/tools.png" CssClass="nav-link-image" />Kopie deníku
+                    </asp:HyperLink>
+                    <asp:HyperLink ID="hlCharactersMenu" runat="server" NavigateUrl="~/Characters.aspx" CssClass="nav-link fs-6">
+                        <asp:Image ID="imgCharactersMenu" runat="server" ImageUrl="~/Images/characters.png" CssClass="nav-link-image" />Postavy
+                    </asp:HyperLink>
+                    <asp:HyperLink ID="hlSkilsMenu" runat="server" NavigateUrl="~/CharacterSkillSetup.aspx" CssClass="nav-link fs-6">
+                        <asp:Image ID="imgSkilsMenu" runat="server" ImageUrl="~/Images/skills.png" CssClass="nav-link-image" />Dovednosti postav
+                    </asp:HyperLink>
+                    <asp:LinkButton ID="btnChangePassword" runat="server" OnClick="btnChangePassword_Click" CssClass="nav-link fs-6">
+                        <asp:Image ID="imgChangePassword" runat="server" ImageUrl="~/Images/password.png" CssClass="nav-link-image" />Změna hesla
+                    </asp:LinkButton>
+                </nav>
+            </div>
+        </div>
+
+        <div class="container app-container pb-2 navbar-offset">
+
+            <div class="text-center mb-2 d-none d-md-block">
+                <asp:HyperLink class="menu-item" ID="hlCreatures" runat="server" NavigateUrl="~/Default.aspx">
+                    <asp:Image ID="imgCreatures" runat="server" ImageUrl="~/Images/creatures.png" CssClass="menu-item-icon" /><br />
+                    Knihovna
+                </asp:HyperLink>
+                <asp:HyperLink class="menu-item" ID="hlSpellbook" runat="server" NavigateUrl="~/Spellbook.aspx">
+                    <asp:Image ID="imgSpellbook" runat="server" ImageUrl="~/Images/spelbook.png" CssClass="menu-item-icon" /><br />
+                    Kniha kouzel
+                </asp:HyperLink>
+                <asp:HyperLink class="menu-item" ID="hlFiles" runat="server" NavigateUrl="~/Files.aspx">
+                    <asp:Image ID="imgFiles" runat="server" ImageUrl="~/Images/files.png" CssClass="menu-item-icon" /><br />
+                    Soubory
+                </asp:HyperLink>
+                <asp:HyperLink class="menu-item" ID="hlTools" runat="server" NavigateUrl="~/UserTools.aspx">
+                    <asp:Image ID="imgTools" runat="server" ImageUrl="~/Images/tools.png" CssClass="menu-item-icon" /><br />
+                    Kopie deníku
+                </asp:HyperLink>
+                <asp:HyperLink CssClass="menu-item" ID="hlCharacters" runat="server" NavigateUrl="~/Characters.aspx">
+                    <asp:Image ID="imgCharacters" runat="server" ImageUrl="~/Images/characters.png" CssClass="menu-item-icon" /><br />
+                    Postavy
+                </asp:HyperLink>
+                <asp:HyperLink CssClass="menu-item" ID="hlSkils" runat="server" NavigateUrl="~/CharacterSkillSetup.aspx">
+                    <asp:Image ID="imgSkils" runat="server" ImageUrl="~/Images/skills.png" CssClass="menu-item-icon" /><br />
+                    Dovednosti
+                </asp:HyperLink>
+            </div>
+
+            <asp:Panel ID="pnlChangePasswordModal" runat="server" CssClass="modal fade" TabIndex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="changePasswordLabel">Změna hesla</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">Nové heslo #1</span>
+                                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" MaxLength="32" placeholder="Zadej nové heslo" aria-label="Zadej nové heslo" aria-describedby="basic-addon1" TextMode="Password"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon2">Nové heslo #2</span>
+                                    <asp:TextBox ID="txtPassword2" runat="server" CssClass="form-control" MaxLength="32" placeholder="Zadej nové heslo znovu" aria-label="Zadej nové heslo znovu" aria-describedby="basic-addon2" TextMode="Password"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="mb-1 err-message text-center">
+                                <asp:Label ID="lblChangePasswordError" runat="server" Text=""></asp:Label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <asp:Button ID="btnChangePasswordSave" runat="server" Text="Změnit heslo" OnClick="btnChangePasswordSave_Click" CssClass="btn btn-primary" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
+                        </div>
+                    </div>
+                </div>
+            </asp:Panel>
+
+            <div>
+                <asp:ContentPlaceHolder ID="contentBody" runat="server"></asp:ContentPlaceHolder>
+            </div>
+
+        </div>
+
+    </form>
+</body>
+</html>

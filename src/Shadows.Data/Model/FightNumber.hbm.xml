@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="FightNumber" table="FightNumber" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="IdCharacter" column="IdCharacter" />
+    <property name="Caption" column="Caption" />
+    <property name="BaseValueCaption1" column="BaseValueCaption1" />
+    <property name="BaseValue1" column="BaseValue1" />
+    <property name="BaseValueCaption2" column="BaseValueCaption2" />
+    <property name="BaseValue2" column="BaseValue2" />
+    <property name="BaseValueCaption3" column="BaseValueCaption3" />
+    <property name="BaseValue3" column="BaseValue3" />
+    <property name="BaseValueCaption4" column="BaseValueCaption4" />
+    <property name="BaseValue4" column="BaseValue4" />
+    <property name="BaseValueCaption5" column="BaseValueCaption5" />
+    <property name="BaseValue5" column="BaseValue5" />
+    <property name="Ordering" column="Ordering" />
+  </class>
+</hibernate-mapping>

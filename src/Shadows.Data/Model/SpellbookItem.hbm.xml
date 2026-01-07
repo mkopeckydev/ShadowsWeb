@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="SpellbookItem" table="SpellbookItem" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="Caption" column="Caption" />
+    <property name="SpellGroup" column="SpellGroup" />
+    <property name="SpellLevel" column="SpellLevel" />
+    <property name="Attributes" column="Attributes" />
+    <property name="Description" column="Description" />
+    <property name="Modification" column="Modification" />
+    <property name="ModificationRuneMage" column="ModificationRuneMage" />
+    <property name="VisibilityCount" not-null="false" update="false" insert="false" formula="(select count(SpellbookItemVisibility.Id) FROM SpellbookItemVisibility WHERE SpellbookItemVisibility.IdSpellbookItem = Id)" />
+  </class>
+</hibernate-mapping>

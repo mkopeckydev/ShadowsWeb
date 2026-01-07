@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="CharacterItemValue" table="CharacterItemValue" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="IdCharacter" column="IdCharacter" />
+    <property name="IdItem" column="IdItem" />
+    <property name="CharacterValue" column="CharacterValue" />
+    <property name="CharacterBonus" column="CharacterBonus" />
+    <property name="Character" not-null="false" update="false" insert="false" formula="(select Character.Name FROM Character WHERE Character.Id = IdCharacter)" />
+    <property name="IsDead" not-null="false" update="false" insert="false" formula="(select Character.IsDead FROM Character WHERE Character.Id = IdCharacter)" />
+  </class>
+</hibernate-mapping>

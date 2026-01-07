@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="FightNumberBonus" table="FightNumberBonus" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="IdFightNumber" column="IdFightNumber" />
+    <property name="Caption" column="Caption" />
+    <property name="Bonus1" column="Bonus1" />
+    <property name="Bonus2" column="Bonus2" />
+    <property name="Bonus3" column="Bonus3" />
+    <property name="Bonus4" column="Bonus4" />
+    <property name="Bonus5" column="Bonus5" />
+    <property name="IsSelected" column="IsSelected" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="FileVisibility" table="FileVisibility" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="IdFileData" column="IdFileData" />
+    <property name="IdCharacter" column="IdCharacter" />
+  </class>
+</hibernate-mapping>

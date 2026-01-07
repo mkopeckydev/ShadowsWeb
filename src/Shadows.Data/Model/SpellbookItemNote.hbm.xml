@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="SpellbookItemNote" table="SpellbookItemNote" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="IdSpellbookItem" column="IdSpellbookItem" />
+    <property name="IdCharacter" column="IdCharacter" />
+    <property name="Note" column="Note" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="CharacterSkillLevel" table="CharacterSkillLevel" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="IdCharacter" column="IdCharacter" />
+    <property name="IdSkill" column="IdSkill" />
+    <property name="IdSkillLevel" column="IdSkillLevel" />
+    <property name="BonusLevel" column="BonusLevel" />
+    <property name="CharacterName" not-null="false" update="false" insert="false" formula="(select Character.Name FROM Character WHERE Character.Id = IdCharacter)" />
+    <property name="CharacterIsDead" not-null="false" update="false" insert="false" formula="(select Character.IsDead FROM Character WHERE Character.Id = IdCharacter)" />
+    <property name="Skill" not-null="false" update="false" insert="false" formula="(select Skill.Caption FROM Skill WHERE Skill.Id = IdSkill)" />
+    <property name="SkillLevel" not-null="false" update="false" insert="false" formula="(select SkillLevel.Caption FROM SkillLevel WHERE SkillLevel.Id = IdSkillLevel)" />
+    <property name="SkillLevelBonus" not-null="false" update="false" insert="false" formula="(select SkillLevel.Bonus FROM SkillLevel WHERE SkillLevel.Id = IdSkillLevel)" />
+  </class>
+</hibernate-mapping>

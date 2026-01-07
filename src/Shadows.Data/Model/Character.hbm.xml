@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Character" table="Character" lazy="false" >
+		<id name="Id">
+			<generator class="identity" />
+		</id>
+		<property name="Name" column="Name" />
+		<property name="UserName" column="UserName" />
+		<property name="Password" column="Password" />
+		<property name="IdCharacterClass" column="IdCharacterClass" />
+		<property name="IdCharacterClass2" column="IdCharacterClass2" />
+		<property name="Administrator" column="Administrator" />
+		<property name="IsDead" column="IsDead" />
+		<property name="IsActive" column="IsActive" />
+		<property name="ClientMessage" column="ClientMessage" />
+		<property name="IntelligenceBonus" column="IntelligenceBonus" />
+		<property name="CharacterClass" not-null="false" update="false" insert="false" formula="(select CharacterClass.Caption FROM CharacterClass WHERE CharacterClass.Id = IdCharacterClass)" />
+		<property name="CharacterClass2" not-null="false" update="false" insert="false" formula="(select CharacterClass.Caption FROM CharacterClass WHERE CharacterClass.Id = IdCharacterClass2)" />
+	</class>
+</hibernate-mapping>

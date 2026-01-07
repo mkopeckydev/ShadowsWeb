@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping assembly="Shadows.Data" namespace="Shadows.Data.Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="CharacterActivity" table="CharacterActivity" lazy="false" >
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="IdCharacter" column="IdCharacter" />
+    <property name="Caption" column="Caption" />
+	<property name="Color" column="Color" />
+    <property name="CheckCount" column="CheckCount" />
+    <property name="Checked1" column="Checked1" />
+    <property name="Checked2" column="Checked2" />
+    <property name="Checked3" column="Checked3" />
+    <property name="Checked4" column="Checked4" />
+    <property name="Checked5" column="Checked5" />
+  </class>
+</hibernate-mapping>
