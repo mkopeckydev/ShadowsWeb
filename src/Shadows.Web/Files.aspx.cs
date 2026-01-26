@@ -75,6 +75,8 @@ public partial class Files : CustomWebPage
         {
             FilesManager fm = new FilesManager();
             fuUpload.SaveAs(fm.GetFilePath(fuUpload.FileName));
+
+            ShowMessage(String.Format("Soubor {0} nahrán.", fuUpload.FileName));
         }
         ReloadData();
     }
