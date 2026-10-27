@@ -32,7 +32,7 @@ public partial class Files : CustomWebPage
         rptItems.DataBind();
     }
 
-    protected void rptItems_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void Items_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName == "DeleteRow")
         {
@@ -69,7 +69,7 @@ public partial class Files : CustomWebPage
     }
 
 
-    protected void btnUpload_Click(object sender, EventArgs e)
+    protected void Upload_Click(object sender, EventArgs e)
     {
         if (fuUpload.HasFile)
         {
@@ -81,7 +81,7 @@ public partial class Files : CustomWebPage
         ReloadData();
     }
 
-    protected void btnSave_Click(object sender, EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         int idFileData = EditId;
 
@@ -97,10 +97,12 @@ public partial class Files : CustomWebPage
             {
                 if (i.Selected)
                 {
-                    fv = new FileVisibility();
-                    fv.IdFileData = idFileData;
-                    fv.IdCharacter = idCharacter;
-                    fv.Selected = i.Selected;
+                    fv = new FileVisibility
+                    {
+                        IdFileData = idFileData,
+                        IdCharacter = idCharacter,
+                        Selected = i.Selected
+                    };
                     visibility.Add(fv);
                 }
             }

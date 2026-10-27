@@ -24,12 +24,12 @@ public partial class Login : CustomWebPage
             {
                 txtUserName.Text = userName;
                 txtPassword.Text = password;
-                btnLogin_Click(null, null);
+                Login_Click(null, null);
             }
         }
     }
 
-    protected void btnLogin_Click(object sender, EventArgs e)
+    protected void Login_Click(object sender, EventArgs e)
     {
         string password = txtPassword.Text;
         string userName = txtUserName.Text;

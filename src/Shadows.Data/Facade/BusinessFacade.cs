@@ -13,7 +13,7 @@ namespace Shadows.Data.Facade
 
         #region Fields
 
-        private ISession nhibernateSession;
+        private readonly ISession nhibernateSession;
         protected ISession NHibernateSession
         {
             get
@@ -28,11 +28,7 @@ namespace Shadows.Data.Facade
 
         public BusinessFacade(ISession nhibernateSession)
         {
-            if (nhibernateSession == null)
-            {
-                throw new Exception("Spatna incializace fasady");
-            }
-            this.nhibernateSession = nhibernateSession;
+            this.nhibernateSession = nhibernateSession ?? throw new Exception("Spatna incializace fasady");
         }
 
         #endregion
@@ -46,7 +42,7 @@ namespace Shadows.Data.Facade
         public virtual T GetEntity(int id)
         {
             ISession session = NHibernateSession;
-            T entity = null;
+            T entity;
             try
             {
                 entity = (T)session.Load(typeof(T), id);
@@ -84,10 +80,8 @@ namespace Shadows.Data.Facade
             }
             catch (Exception ex)
             {
-                if (transaction != null)
-                {
-                    transaction.Rollback();
-                }
+                transaction?.Rollback();
+
                 ProcessException(ex);
             }
             finally
@@ -105,21 +99,21 @@ namespace Shadows.Data.Facade
         /// <returns></returns>
         public virtual List<T> GetListEntities()
         {
-            return GetListEntities(String.Empty, true, String.Empty, 0, false);
+            return GetListEntities(String.Empty, true, String.Empty, false);
         }
         public virtual List<T> GetListEntities(string order, bool ascending)
         {
-            return GetListEntities(order, ascending, String.Empty, 0, false);
+            return GetListEntities(order, ascending, String.Empty, false);
         }
         public virtual List<T> GetListEntities(string order, bool ascending, string filter)
         {
-            return GetListEntities(order, ascending, filter, 0, false);
+            return GetListEntities(order, ascending, filter, false);
         }
-        public virtual List<T> GetListEntities(string order, bool ascending, string filter, int maxRows)
-        {
-            return GetListEntities(order, ascending, filter, maxRows, false);
-        }
-        public virtual List<T> GetListEntities(string order, bool ascending, string filter, int maxRows, bool addEmpty)
+        //public virtual List<T> GetListEntities(string order, bool ascending, string filter, int maxRows)
+        //{
+        //    return GetListEntities(order, ascending, filter, maxRows, false);
+        //}
+        public virtual List<T> GetListEntities(string order, bool ascending, string filter, bool addEmpty)
         {
             ISession session = NHibernateSession;
             try
@@ -139,7 +133,7 @@ namespace Shadows.Data.Facade
                     }
                 }
 
-                if (maxRows > 0) crit.SetMaxResults(maxRows);
+                //if (maxRows > 0) crit.SetMaxResults(maxRows);
                 List<T> list = (List<T>)crit.List<T>();
 
                 if (addEmpty)
@@ -183,10 +177,7 @@ namespace Shadows.Data.Facade
             }
             catch (Exception ex)
             {
-                if (transaction != null)
-                {
-                    transaction.Rollback();
-                }
+                transaction?.Rollback();
                 ProcessException(ex);
             }
             finally

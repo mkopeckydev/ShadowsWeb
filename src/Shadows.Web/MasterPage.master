@@ -29,7 +29,7 @@
                     <asp:Label ID="lblLoggedInfoName" runat="server" Text="..." Font-Bold="true"></asp:Label>
                     <asp:Label ID="lblLoggedInfoClass" runat="server" Text="..."></asp:Label>
                     <asp:Label ID="lblLoggedInfoClass2" runat="server" Text="..."></asp:Label>
-                    <asp:LinkButton ID="btnLogout" runat="server" Text="Odhlásit" OnClick="btnLogout_Click" />
+                    <asp:LinkButton ID="btnLogout" runat="server" Text="Odhlásit" OnClick="Logout_Click" />
                 </div>
             </div>
         </nav>
@@ -59,7 +59,7 @@
                     <asp:HyperLink ID="hlSkilsMenu" runat="server" NavigateUrl="~/CharacterSkillSetup.aspx" CssClass="nav-link fs-6">
                         <asp:Image ID="imgSkilsMenu" runat="server" ImageUrl="~/Images/skills.png" CssClass="nav-link-image" />Dovednosti postav
                     </asp:HyperLink>
-                    <asp:LinkButton ID="btnChangePassword" runat="server" OnClick="btnChangePassword_Click" CssClass="nav-link fs-6">
+                    <asp:LinkButton ID="btnChangePassword" runat="server" OnClick="ChangePassword_Click" CssClass="nav-link fs-6">
                         <asp:Image ID="imgChangePassword" runat="server" ImageUrl="~/Images/password.png" CssClass="nav-link-image" />Změna hesla
                     </asp:LinkButton>
                 </nav>
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="btnChangePasswordSave" runat="server" Text="Změnit heslo" OnClick="btnChangePasswordSave_Click" CssClass="btn btn-primary" />
+                            <asp:Button ID="btnChangePasswordSave" runat="server" Text="Změnit heslo" OnClick="ChangePasswordSave_Click" CssClass="btn btn-primary" />
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
                         </div>
                     </div>

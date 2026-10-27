@@ -99,6 +99,25 @@
             instance.
             </returns>
         </member>
+        <member name="M:iTextSharp.text.pdf.MemoryLimitsAwareHandler.IsMemoryLimitsAwarenessRequiredOnDecompression(iTextSharp.text.pdf.PRStream)">
+            <summary>
+            Performs a check if the
+            <see cref="T:iTextSharp.text.pdf.PRStream"/>
+            dictionary requires memory limits awareness during decompression.
+            </summary>
+            <param name="stream">
+            the
+            <see cref="T:iTextSharp.text.pdf.PRStream"/>
+            to check
+            </param>
+            <returns>
+            
+            <see langword="true"/>
+            if the stream is suspicious and
+            <see langword="false"/>
+            otherwise
+            </returns>
+        </member>
         <member name="M:iTextSharp.text.pdf.MemoryLimitsAwareHandler.ConsiderBytesOccupiedByDecompressedPdfStream(System.Int64)">
             <summary>Considers the number of bytes which are occupied by the decompressed pdf stream.</summary>
             <remarks>
@@ -24411,6 +24430,109 @@
         <member name="M:iTextSharp.text.pdf.PdfStructTreeController.AttachStructTreeRootKids(iTextSharp.text.pdf.PdfObject)">
             Add kid to structureTreeRoot from structTreeRoot
         </member>
+        <member name="T:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsAggregator">
+            <summary>Statistics aggregator which aggregates number of pages in PDF documents.</summary>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsAggregator.Aggregate(iText.Commons.Actions.AbstractStatisticsEvent)">
+            <summary>Aggregates number of pages from the provided event.</summary>
+            <param name="event">
+            
+            <see cref="T:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsEvent"/>
+            instance
+            </param>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsAggregator.RetrieveAggregation">
+            <summary>Retrieves Map where keys are ranges of pages and values are the amounts of such PDF documents.</summary>
+            <returns>
+            aggregated
+            <see cref="!:System.Collections.IDictionary&lt;K, V&gt;"/>
+            </returns>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsAggregator.Merge(iText.Commons.Actions.AbstractStatisticsAggregator)">
+            <summary>Merges data about amounts of ranges of pages from the provided aggregator into this aggregator.</summary>
+            <param name="aggregator">
+            
+            <see cref="T:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsAggregator"/>
+            from which data will be taken.
+            </param>
+        </member>
+        <member name="T:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsEvent">
+            <summary>Class which represents event for counting the number of pages in a PDF document.</summary>
+            <remarks>Class which represents event for counting the number of pages in a PDF document. Only for internal usage.
+                </remarks>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsEvent.#ctor(System.Int32,iText.Commons.Actions.Data.ProductData)">
+            <summary>
+            Creates an instance of this class based on the
+            <see cref="T:iText.Commons.Actions.Data.ProductData"/>
+            and the number of pages.
+            </summary>
+            <param name="numberOfPages">the number of pages in the PDF document during the processing of which the event was sent
+                </param>
+            <param name="productData">is a description of the product which has generated an event</param>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsEvent.CreateStatisticsAggregatorFromName(System.String)">
+            <summary><inheritDoc/></summary>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsEvent.GetStatisticsNames">
+            <summary><inheritDoc/></summary>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.NumberOfPagesStatisticsEvent.GetNumberOfPages">
+            <summary>Gets number of pages in the PDF document during the processing of which the event was sent.</summary>
+            <returns>the number of pages</returns>
+        </member>
+        <member name="T:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsAggregator">
+            <summary>Statistics aggregator which aggregates size of PDF documents.</summary>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsAggregator.Aggregate(iText.Commons.Actions.AbstractStatisticsEvent)">
+            <summary>Aggregates size of the PDF document from the provided event.</summary>
+            <param name="event">
+            
+            <see cref="T:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsEvent"/>
+            instance
+            </param>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsAggregator.RetrieveAggregation">
+            <summary>Retrieves Map where keys are ranges of document sizes and values are the amounts of such PDF documents.
+                </summary>
+            <returns>
+            aggregated
+            <see cref="!:System.Collections.IDictionary&lt;K, V&gt;"/>
+            </returns>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsAggregator.Merge(iText.Commons.Actions.AbstractStatisticsAggregator)">
+            <summary>Merges data about amounts of ranges of document sizes from the provided aggregator into this aggregator.
+                </summary>
+            <param name="aggregator">
+            
+            <see cref="T:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsAggregator"/>
+            from which data will be taken.
+            </param>
+        </member>
+        <member name="T:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsEvent">
+            <summary>Class which represents event related to size of the PDF document.</summary>
+            <remarks>Class which represents event related to size of the PDF document. Only for internal usage.</remarks>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsEvent.#ctor(System.Int64,iText.Commons.Actions.Data.ProductData)">
+            <summary>
+            Creates an instance of this class based on the
+            <see cref="T:iText.Commons.Actions.Data.ProductData"/>
+            and the size of the document.
+            </summary>
+            <param name="amountOfBytes">the number of bytes in the PDF document during the processing of which the event was sent
+                </param>
+            <param name="productData">is a description of the product which has generated an event</param>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsEvent.CreateStatisticsAggregatorFromName(System.String)">
+            <summary><inheritDoc/></summary>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsEvent.GetStatisticsNames">
+            <summary><inheritDoc/></summary>
+        </member>
+        <member name="M:iTextSharp.text.pdf.Statistics.SizeOfPdfStatisticsEvent.GetAmountOfBytes">
+            <summary>Gets number of bytes in the PDF document during the processing of which the event was sent.</summary>
+            <returns>the number of pages</returns>
+        </member>
         <member name="T:iTextSharp.text.Anchor">
             <summary>
             An Anchor can be a reference or a destination of a reference.
@@ -33580,6 +33702,38 @@
              @param    o    the object to add.
              @return true if adding the object succeeded
         </member>
+        <member name="T:iTextSharp.text.Actions.Data.IText5ProductData">
+            <summary>
+            Stores an instance of
+            <see cref="T:iText.Commons.Actions.Data.ProductData"/>
+            related to iText 5.
+            </summary>
+        </member>
+        <member name="M:iTextSharp.text.Actions.Data.IText5ProductData.GetInstance">
+            <summary>
+            Getter for an instance of
+            <see cref="T:iText.Commons.Actions.Data.ProductData"/>
+            related to iText 5.
+            </summary>
+            <returns>iText 5 product description</returns>
+        </member>
+        <member name="T:iTextSharp.text.Actions.Events.IText5ProductEvent">
+            <summary>Class represents events registered in iText 5.</summary>
+        </member>
+        <member name="F:iTextSharp.text.Actions.Events.IText5ProductEvent.PROCESS_PDF">
+            <summary>Process PDF event type.</summary>
+        </member>
+        <member name="M:iTextSharp.text.Actions.Events.IText5ProductEvent.#ctor(iText.Commons.Actions.Sequence.SequenceId,iText.Commons.Actions.Contexts.IMetaInfo,System.String)">
+            <summary>Creates an event associated with a general identifier and additional metadata.</summary>
+            <param name="sequenceId">is an identifier associated with the event</param>
+            <param name="metaInfo">is an additional meta info</param>
+            <param name="eventType">is a string description of the event</param>
+        </member>
+        <member name="M:iTextSharp.text.Actions.Events.IText5ProductEvent.CreateProcessPdfEvent">
+            <summary>Creates a process-pdf event which is associated with a general identifier and additional metadata.
+                </summary>
+            <returns>the process pdf iText 5 event</returns>
+        </member>
         <member name="T:iTextSharp.text.api.IIndentable">
             Objects implementing Indentable allow to set indentation left and right.
         </member>
@@ -33677,6 +33831,9 @@
         <member name="P:iTextSharp.text.Version.IsAGPLVersion">
             Checks if the AGPL version is used.
             @return returns true if the AGPL version is used.
+        </member>
+        <member name="T:iTextSharp.text.UnifiedVersion">
+            <summary>The class is only for internal usage</summary>
         </member>
         <member name="T:iTextSharp.text.WritableDirectElement">
              An element that is not an element, it holds {@link Element#WRITABLE_DIRECT}
@@ -33873,56 +34030,32 @@
         <!-- Badly formed XML comment ignored for member "M:iTextSharp.xmp.impl.CountOutputStream.Write(System.Byte[],System.Int32,System.Int32)" -->
         <!-- Badly formed XML comment ignored for member "M:iTextSharp.xmp.impl.CountOutputStream.Write(System.Byte[])" -->
         <!-- Badly formed XML comment ignored for member "M:iTextSharp.xmp.impl.CountOutputStream.Write(System.Int32)" -->
-        <member name="T:iTextSharp.xmp.impl.FilterReader">
-            <summary>
-            Abstract class for reading filtered character streams.
-            The abstract class <code>FilterReader</code> itself
-            provides default methods that pass all requests to
-            the contained stream. Subclasses of <code>FilterReader</code>
-            should override some of these methods and may also provide
-            additional methods and fields.
-            
-            @author      Mark Reinhold
-            @since       JDK1.1
-            </summary>
-        </member>
-        <member name="M:iTextSharp.xmp.impl.FilterReader.Read">
-             Reads a single character.
-            
-             @exception  IOException  If an I/O error occurs
-        </member>
-        <member name="M:iTextSharp.xmp.impl.FilterReader.Read(System.Char[],System.Int32,System.Int32)">
-             Reads characters into a portion of an array.
-            
-             @exception  IOException  If an I/O error occurs
-        </member>
-        <member name="M:iTextSharp.xmp.impl.FilterReader.Close">
-            **
-        </member>
         <member name="T:iTextSharp.xmp.impl.FixAsciiControlsReader">
-            <summary>
-            @since   22.08.2006
-            </summary>
+            <since>22.08.2006</since>
         </member>
-        <member name="F:iTextSharp.xmp.impl.FixAsciiControlsReader._control">
-            <summary>
-            the result of the escaping sequence </summary>
+        <member name="F:iTextSharp.xmp.impl.FixAsciiControlsReader.state">
+            <summary>the state of the automaton</summary>
         </member>
-        <member name="F:iTextSharp.xmp.impl.FixAsciiControlsReader._digits">
-            <summary>
-            count the digits of the sequence </summary>
+        <member name="F:iTextSharp.xmp.impl.FixAsciiControlsReader.control">
+            <summary>the result of the escaping sequence</summary>
         </member>
-        <member name="F:iTextSharp.xmp.impl.FixAsciiControlsReader._state">
-            <summary>
-            the state of the automaton </summary>
+        <member name="F:iTextSharp.xmp.impl.FixAsciiControlsReader.digits">
+            <summary>count the digits of the sequence</summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:iTextSharp.xmp.impl.FixAsciiControlsReader.#ctor(System.IO.TextReader)" -->
-        <!-- Badly formed XML comment ignored for member "M:iTextSharp.xmp.impl.FixAsciiControlsReader.Read(System.Char[],System.Int32,System.Int32)" -->
+        <member name="M:iTextSharp.xmp.impl.FixAsciiControlsReader.#ctor(System.IO.TextReader)">
+            <summary>A wrapper xmp reader to handle control characters (&amp;#xAB;)</summary>
+            <param name="input">a Reader</param>
+        </member>
+        <member name="M:iTextSharp.xmp.impl.FixAsciiControlsReader.Read(System.Char[],System.Int32,System.Int32)">
+            <seealso cref="M:System.IO.TextReader.Read(System.Char[],System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:iTextSharp.xmp.impl.FixAsciiControlsReader.Close">
+            <summary><inheritDoc/></summary>
+        </member>
         <member name="M:iTextSharp.xmp.impl.FixAsciiControlsReader.ProcessChar(System.Char)">
-            <summary>
-            Processes numeric escaped chars to find out if they are a control character. </summary>
-            <param name="ch"> a char </param>
-            <returns> Returns the char directly or as replacement for the escaped sequence. </returns>
+            <summary>Processes numeric escaped chars to find out if they are a control character.</summary>
+            <param name="ch">a char</param>
+            <returns>Returns the char directly or as replacement for the escaped sequence.</returns>
         </member>
         <member name="T:iTextSharp.xmp.impl.Iso8601Converter">
             <summary>
@@ -34366,103 +34499,6 @@
             </summary>
             <param name="node"> an XML node </param>
             <returns> Returns the term ID. </returns>
-        </member>
-        <member name="T:iTextSharp.xmp.impl.PushbackReader">
-            <summary>
-            A character-stream reader that allows characters to be pushed back into the
-            stream.
-            
-            @author      Mark Reinhold
-            @since       JDK1.1
-            </summary>
-        </member>
-        <member name="F:iTextSharp.xmp.impl.PushbackReader._buf">
-            <summary>
-            Pushback buffer </summary>
-        </member>
-        <member name="F:iTextSharp.xmp.impl.PushbackReader._pos">
-            <summary>
-            Current position in buffer </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:iTextSharp.xmp.impl.PushbackReader.#ctor(System.IO.TextReader,System.Int32)" -->
-        <member name="M:iTextSharp.xmp.impl.PushbackReader.#ctor(System.IO.TextReader)">
-            <summary>
-            Creates a new pushback reader with a one-character pushback buffer.
-            </summary>
-            <param name="in">  The reader from which characters will be read </param>
-        </member>
-        <member name="M:iTextSharp.xmp.impl.PushbackReader.EnsureOpen">
-            <summary>
-            Checks to make sure that the stream has not been closed. </summary>
-        </member>
-        <member name="M:iTextSharp.xmp.impl.PushbackReader.Read">
-            <summary>
-            Reads a single character.
-            </summary>
-            <returns>     The character read, or -1 if the end of the stream has been
-                        reached
-            </returns>
-            <exception cref="T:System.IO.IOException">  If an I/O error occurs </exception>
-        </member>
-        <member name="M:iTextSharp.xmp.impl.PushbackReader.Read(System.Char[],System.Int32,System.Int32)">
-            <summary>
-            Reads characters into a portion of an array.
-            </summary>
-            <param name="cbuf">  Destination buffer </param>
-            <param name="off">   Offset at which to start writing characters </param>
-            <param name="len">   Maximum number of characters to read
-            </param>
-            <returns>     The number of characters read, or -1 if the end of the
-                        stream has been reached
-            </returns>
-            <exception cref="T:System.IO.IOException">  If an I/O error occurs </exception>
-        </member>
-        <member name="M:iTextSharp.xmp.impl.PushbackReader.Unread(System.Int32)">
-            <summary>
-            Pushes back a single character by copying it to the front of the
-            pushback buffer. After this method returns, the next character to be read
-            will have the value <code>(char)c</code>.
-            </summary>
-            <param name="c">  The int value representing a character to be pushed back
-            </param>
-            <exception cref="T:System.IO.IOException">  If the pushback buffer is full,
-                                     or if some other I/O error occurs </exception>
-        </member>
-        <member name="M:iTextSharp.xmp.impl.PushbackReader.Unread(System.Char[],System.Int32,System.Int32)">
-            <summary>
-            Pushes back a portion of an array of characters by copying it to the
-            front of the pushback buffer.  After this method returns, the next
-            character to be read will have the value <code>cbuf[off]</code>, the
-            character after that will have the value <code>cbuf[off+1]</code>, and
-            so forth.
-            </summary>
-            <param name="cbuf">  Character array </param>
-            <param name="off">   Offset of first character to push back </param>
-            <param name="len">   Number of characters to push back
-            </param>
-            <exception cref="T:System.IO.IOException">  If there is insufficient room in the pushback
-                                     buffer, or if some other I/O error occurs </exception>
-        </member>
-        <member name="M:iTextSharp.xmp.impl.PushbackReader.Unread(System.Char[])">
-            <summary>
-            Pushes back an array of characters by copying it to the front of the
-            pushback buffer.  After this method returns, the next character to be
-            read will have the value <code>cbuf[0]</code>, the character after that
-            will have the value <code>cbuf[1]</code>, and so forth.
-            </summary>
-            <param name="cbuf">  Character array to push back
-            </param>
-            <exception cref="T:System.IO.IOException">  If there is insufficient room in the pushback
-                                     buffer, or if some other I/O error occurs </exception>
-        </member>
-        <member name="M:iTextSharp.xmp.impl.PushbackReader.Close">
-            <summary>
-            Closes the stream and releases any system resources associated with
-            it. Once the stream has been closed, further read(),
-            unread(), ready(), or skip() invocations will throw an IOException.
-            Closing a previously closed stream has no effect.
-            </summary>
-            <exception cref="T:System.IO.IOException">  If an I/O error occurs </exception>
         </member>
         <member name="T:iTextSharp.xmp.impl.QName">
             <summary>

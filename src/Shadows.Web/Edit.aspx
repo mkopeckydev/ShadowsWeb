@@ -35,8 +35,8 @@
             </table>
         </div>
         <div class="m-1 text-center">
-            <asp:Button ID="btnSave" runat="server" Text="Uložit" OnClick="btnSave_Click" CssClass="btn btn-primary" />
-            <asp:Button ID="btnClose" runat="server" Text="Zavřít" OnClick="btnClose_Click" CssClass="btn btn-secondary" />
+            <asp:Button ID="btnSave" runat="server" Text="Uložit" OnClick="Save_Click" CssClass="btn btn-primary" />
+            <asp:Button ID="btnClose" runat="server" Text="Zavřít" OnClick="Close_Click" CssClass="btn btn-secondary" />
         </div>
     </asp:Panel>
 
@@ -50,7 +50,7 @@
                         <asp:Label ID="lblRows" runat="server" CssClass="caption" Text="Informace"></asp:Label>
                     </div>
                     <div class="float-end">
-                        <asp:Button ID="btnNewRow" runat="server" Text="Přidat informaci" OnClick="btnNewRow_Click" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnNewRow" runat="server" Text="Přidat informaci" OnClick="NewRow_Click" CssClass="btn btn-primary" />
                     </div>
                 </div>
 
@@ -66,7 +66,7 @@
                             </tr>
                         </thead>
 
-                        <asp:Repeater ID="rptRows" runat="server" OnItemCommand="rptRows_ItemCommand" OnItemDataBound="rptRows_ItemDataBound">
+                        <asp:Repeater ID="rptRows" runat="server" OnItemCommand="Rows_ItemCommand" OnItemDataBound="Rows_ItemDataBound">
                             <ItemTemplate>
                                 <tr runat="server" id="trRow">
                                     <td class="align-middle"><%# Eval("InfoLevel")%></td>
@@ -116,7 +116,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" align="right">
-                                <asp:Button ID="btnSaveRow" runat="server" Text="Uložit" UseSubmitBehavior="false" OnClick="btnSaveRow_Click" CssClass="btn btn-primary" />
+                                <asp:Button ID="btnSaveRow" runat="server" Text="Uložit" UseSubmitBehavior="false" OnClick="SaveRow_Click" CssClass="btn btn-primary" />
                                 <asp:Button ID="btnCancelRow" runat="server" Text="Zavřít" CssClass="btn btn-secondary" />
                             </td>
                         </tr>
@@ -137,8 +137,8 @@
                         <asp:Label ID="lblValues" runat="server" CssClass="caption" Text="Hody kostkou a bonusy postav"></asp:Label>
                     </div>
                     <div class="float-end">
-                        <asp:Button ID="btnGenerateValues" runat="server" Text="Doplnit hody" OnClick="btnGenerateValues_Click" CssClass="btn btn-primary" />
-                        <asp:Button ID="btnNewValue" runat="server" Text="Přidat hod" OnClick="btnNewValue_Click" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnGenerateValues" runat="server" Text="Doplnit hody" OnClick="GenerateValues_Click" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnNewValue" runat="server" Text="Přidat hod" OnClick="NewValue_Click" CssClass="btn btn-primary" />
                     </div>
                 </div>
                 <div class="m-1">
@@ -152,7 +152,7 @@
                             </tr>
                         </thead>
 
-                        <asp:Repeater ID="rptValues" runat="server" OnItemDataBound="rptValues_ItemDataBound" OnItemCommand="rptValues_ItemCommand">
+                        <asp:Repeater ID="rptValues" runat="server" OnItemDataBound="Values_ItemDataBound" OnItemCommand="Values_ItemCommand">
                             <ItemTemplate>
                                 <tr runat="server" id="trRow">
                                     <td><%# Eval("Character")%></td>
@@ -192,7 +192,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="text-end">
-                            <asp:Button ID="btnSaveValue" runat="server" Text="Uložit" UseSubmitBehavior="false" OnClick="btnSaveValue_Click" CssClass="btn btn-primary" />
+                            <asp:Button ID="btnSaveValue" runat="server" Text="Uložit" UseSubmitBehavior="false" OnClick="SaveValue_Click" CssClass="btn btn-primary" />
                             <asp:Button ID="btnCancelValue" runat="server" Text="Zavřít" CssClass="btn btn-secondary" />
                         </td>
                     </tr>

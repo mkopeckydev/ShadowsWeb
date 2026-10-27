@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="mb-1 text-center">
-                    <asp:Button ID="btnLogin" runat="server" Text="Přihlásit" OnClick="btnLogin_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnLogin" runat="server" Text="Přihlásit" OnClick="Login_Click" CssClass="btn btn-primary" />
                 </div>
                 <div class="mb-1 err-message text-center">
                     <asp:Label ID="lblError" runat="server" Text=""></asp:Label>

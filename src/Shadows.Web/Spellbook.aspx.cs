@@ -41,7 +41,7 @@ public partial class Spellbook : CustomWebPage
 
         SpellbookItemFacade fSpellbookItem = new SpellbookItemFacade(NHibernateSession);
 
-        int searchLevel = 0;
+        int searchLevel;
         Int32.TryParse(txtSearchLevel.Text, out searchLevel);   
 
         List<SpellbookItem> spellbookItems = fSpellbookItem.Search(txtSearchText.Text, searchLevel, ApplicationSession.GetUser());
@@ -53,8 +53,8 @@ public partial class Spellbook : CustomWebPage
     }
     #endregion
 
-    #region rptItems_ItemCommand
-    protected void rptItems_ItemCommand(object source, RepeaterCommandEventArgs e)
+    #region Items_ItemCommand
+    protected void Items_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName == "DeleteRow")
         {
@@ -102,8 +102,8 @@ public partial class Spellbook : CustomWebPage
     }
     #endregion
 
-    #region btnSave_Click
-    protected void btnSave_Click(object sender, EventArgs e)
+    #region Save_Click
+    protected void Save_Click(object sender, EventArgs e)
     {
         int id = EditId;
 
@@ -119,10 +119,12 @@ public partial class Spellbook : CustomWebPage
             {
                 if (i.Selected)
                 {
-                    fv = new SpellbookItemVisibility();
-                    fv.IdSpellbookItem = id;
-                    fv.IdCharacter = idCharacter;
-                    fv.Selected = i.Selected;
+                    fv = new SpellbookItemVisibility
+                    {
+                        IdSpellbookItem = id,
+                        IdCharacter = idCharacter,
+                        Selected = i.Selected
+                    };
                     visibility.Add(fv);
                 }
             }
@@ -148,22 +150,22 @@ public partial class Spellbook : CustomWebPage
     }
     #endregion
 
-    #region btnNew_Click
-    protected void btnNew_Click(object sender, EventArgs e)
+    #region New_Click
+    protected void New_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/SpellbookEdit.aspx", true);
     }
     #endregion
 
-    #region btnSearch_Click
-    protected void btnSearch_Click(object sender, EventArgs e)
+    #region Search_Click
+    protected void Search_Click(object sender, EventArgs e)
     {
         ReloadData();
     }
     #endregion
 
-    #region rptItems_ItemDataBound
-    protected void rptItems_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    #region Items_ItemDataBound
+    protected void Items_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         LinkButton b = (LinkButton)e.Item.FindControl("btnEditRow");
         if (b != null) b.Visible = _tmpAdmin;
@@ -174,8 +176,8 @@ public partial class Spellbook : CustomWebPage
     }
     #endregion
 
-    #region btnPrint_Click
-    protected void btnPrint_Click(object sender, EventArgs e)
+    #region Print_Click
+    protected void Print_Click(object sender, EventArgs e)
     {
         string fileName = "knihakouzel";
 

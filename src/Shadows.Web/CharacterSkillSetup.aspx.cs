@@ -61,7 +61,7 @@ public partial class CharacterSkillSetup : CustomWebPage
         }
     }
 
-    protected void btnNew_Click(object sender, EventArgs e)
+    protected void New_Click(object sender, EventArgs e)
     {
         EditId = BaseEntity.NEW_OBJECT_ID;
         ControlsTools.InitializeDDL(ddlIdCharacter);
@@ -71,7 +71,7 @@ public partial class CharacterSkillSetup : CustomWebPage
         detailPopup.Show();
     }
 
-    protected void btnSave_Click(object sender, EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         BusinessFacade<CharacterSkillLevel> fCharacterSkillLevel = new BusinessFacade<CharacterSkillLevel>(NHibernateSession);
         CharacterSkillLevel ch = new CharacterSkillLevel();
@@ -93,7 +93,7 @@ public partial class CharacterSkillSetup : CustomWebPage
         ReloadData();
     }
 
-    protected void rptItems_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void Items_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         int id = Convert.ToInt32(e.CommandArgument);
         BusinessFacade<CharacterSkillLevel> fCharacterSkillLevel = new BusinessFacade<CharacterSkillLevel>(NHibernateSession);
@@ -116,7 +116,7 @@ public partial class CharacterSkillSetup : CustomWebPage
         }
     }
 
-    protected void btnGenerateAll_Click(object sender, EventArgs e)
+    protected void GenerateAll_Click(object sender, EventArgs e)
     {
         //pro vsechny dovednosti postav se vygeneruje
         BusinessFacade<CharacterSkillLevel> fCharacter = new BusinessFacade<CharacterSkillLevel>(NHibernateSession);
@@ -141,13 +141,15 @@ public partial class CharacterSkillSetup : CustomWebPage
                 {
                     //zaznam neexistuje, musi se vygenerovat
 
-                    CharacterItemValue newVal = new CharacterItemValue();
-                    newVal.IdCharacter = skill.IdCharacter;
-                    newVal.IdItem = item.Id;
-                    newVal.CharacterValue = dice.Get3k6();
-                    newVal.CharacterBonus = 0;
-                    newVal.Character = skill.CharacterName;
-                    newVal.IsDead = skill.CharacterIsDead;
+                    CharacterItemValue newVal = new CharacterItemValue
+                    {
+                        IdCharacter = skill.IdCharacter,
+                        IdItem = item.Id,
+                        CharacterValue = dice.Get3k6(),
+                        CharacterBonus = 0,
+                        Character = skill.CharacterName,
+                        IsDead = skill.CharacterIsDead
+                    };
 
                     fCharacterItemValue.SaveEntity(newVal);
                     count++;

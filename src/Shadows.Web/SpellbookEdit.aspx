@@ -26,8 +26,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" class="text-center">
-                        <asp:Button ID="btnSave" runat="server" Text="Uložit" OnClick="btnSave_Click" CssClass="btn btn-primary" />
-                        <asp:Button ID="btnClose" runat="server" Text="Zavřít" OnClick="btnClose_Click" CssClass="btn btn-secondary" />
+                        <asp:Button ID="btnSave" runat="server" Text="Uložit" OnClick="Save_Click" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnClose" runat="server" Text="Zavřít" OnClick="Close_Click" CssClass="btn btn-secondary" />
                     </td>
                 </tr>
             </table>

@@ -53,7 +53,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
     }
 
-    protected void btnLogout_Click(object sender, EventArgs e)
+    protected void Logout_Click(object sender, EventArgs e)
     {
         ApplicationSession.Logout();
         CustomWebPage p = (CustomWebPage)Page;
@@ -68,7 +68,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         ContentPage.ShowBootstrapPopup(pnlChangePasswordModal.ClientID);
     }
 
-    protected void btnChangePassword_Click(object sender, EventArgs e)
+    protected void ChangePassword_Click(object sender, EventArgs e)
     {
         lblChangePasswordError.Text = String.Empty;
         txtPassword.Text = String.Empty;
@@ -77,7 +77,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         ShowChangePassword();
     }
 
-    protected void btnChangePasswordSave_Click(object sender, EventArgs e)
+    protected void ChangePasswordSave_Click(object sender, EventArgs e)
     {
         bool error = false;
 

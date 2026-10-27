@@ -26,10 +26,10 @@
                 </table>
             </div>
             <div class="float-end m-1">
-                <asp:CheckBox ID="chbShowImages" runat="server" OnCheckedChanged="btnSearch_Click" AutoPostBack="true" CssClass="me-1 align-middle chb" Text="Obrázky" />
-                <asp:Button ID="btnSearch" runat="server" Text="Hledat" OnClick="btnSearch_Click" CssClass="btn btn-primary" />
-                <asp:Button ID="btnPrint" runat="server" Text="Tisk" OnClick="btnPrint_Click" CssClass="btn btn-primary" />
-                <asp:Button ID="btnNew" runat="server" Text="Nový záznam" ToolTip="Nový" OnClick="btnNew_Click" CssClass="btn btn-primary" />
+                <asp:CheckBox ID="chbShowImages" runat="server" OnCheckedChanged="Search_Click" AutoPostBack="true" CssClass="me-1 align-middle chb" Text="Obrázky" />
+                <asp:Button ID="btnSearch" runat="server" Text="Hledat" OnClick="Search_Click" CssClass="btn btn-primary" />
+                <asp:Button ID="btnPrint" runat="server" Text="Tisk" OnClick="Print_Click" CssClass="btn btn-primary" />
+                <asp:Button ID="btnNew" runat="server" Text="Nový záznam" ToolTip="Nový" OnClick="New_Click" CssClass="btn btn-primary" />
             </div>
 
         </div>
@@ -41,7 +41,7 @@
         <asp:UpdatePanel ID="upMain" runat="server">
             <ContentTemplate>
 
-                <asp:Repeater ID="rptItems" runat="server" OnItemCreated="rptItems_ItemCreated" OnItemCommand="rptItems_ItemCommand" OnItemDataBound="rptItems_ItemDataBound">
+                <asp:Repeater ID="rptItems" runat="server" OnItemCreated="Items_ItemCreated" OnItemCommand="Items_ItemCommand" OnItemDataBound="Items_ItemDataBound">
                     <HeaderTemplate>
                         <table class="table table-hover">
                     </HeaderTemplate>

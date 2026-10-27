@@ -33,7 +33,7 @@ public partial class Detail : CustomWebPage
             }
             else
             {
-                btnClose_Click(null, null);
+                Close_Click(null, null);
             }
 
             if (EditId > 0)
@@ -80,12 +80,12 @@ public partial class Detail : CustomWebPage
         }
     }
 
-    protected void btnClose_Click(object sender, EventArgs e)
+    protected void Close_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Default.aspx", true);
     }
 
-    protected void btnSaveItemNote_Click(object sender, EventArgs e)
+    protected void SaveItemNote_Click(object sender, EventArgs e)
     {
         lblSaveItemNote.Text = "Uloženo<br />";
 

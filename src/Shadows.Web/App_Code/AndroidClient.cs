@@ -78,7 +78,7 @@ namespace Shadows.Web
             if (character != null)
             {
                 BusinessFacade<CharacterSkillLevel> fCharacterSkillLevel = new BusinessFacade<CharacterSkillLevel>(NHibernateSession);
-                list = fCharacterSkillLevel.GetListEntities("Skill", true, String.Format("(IdCharacter = {0})", character.Id), 0, true);
+                list = fCharacterSkillLevel.GetListEntities("Skill", true, String.Format("(IdCharacter = {0})", character.Id), true);
             }
             CloseSession();
 

@@ -57,12 +57,12 @@ public partial class SpellbookEdit : CustomWebPage
         }
     }
 
-    protected void btnClose_Click(object sender, EventArgs e)
+    protected void Close_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Spellbook.aspx", true);
     }
 
-    protected void btnSave_Click(object sender, EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         BusinessFacade<SpellbookItem> fSpellbookItem = new BusinessFacade<SpellbookItem>(NHibernateSession);
 
@@ -74,9 +74,11 @@ public partial class SpellbookEdit : CustomWebPage
 
         i.Caption = txtCaption.Text;
         i.SpellGroup = txtSpellGroup.Text;
-        int l = 0;
+        
+        int l;
         Int32.TryParse(txtSpellLevel.Text, out l);
         i.SpellLevel = l;
+
         i.Attributes = txtAttributes.Text;
         i.Description = txtDescription.Text;
         i.Modification = txtModification.Text;

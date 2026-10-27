@@ -8,7 +8,7 @@
                 <asp:Label ID="lblCaption" runat="server"></asp:Label></h1>
         </div>
         <div class="mb-1">
-            <asp:Button ID="btnClose" runat="server" Text="Zavřít" OnClick="btnClose_Click" CssClass="btn btn-primary" />
+            <asp:Button ID="btnClose" runat="server" Text="Zavřít" OnClick="Close_Click" CssClass="btn btn-primary" />
         </div>
     </asp:Panel>
 
@@ -51,7 +51,7 @@
                 </div>
                 <div class="text-center mb-1">
                     <asp:Label ID="lblSaveSpellbookItemNote" runat="server" Text="" CssClass="err-message me-1"></asp:Label>
-                    <asp:Button ID="btnSaveSpellbookItemNote" runat="server" Text="Uložit" OnClick="btnSaveSpellbookItemNote_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnSaveSpellbookItemNote" runat="server" Text="Uložit" OnClick="SaveSpellbookItemNote_Click" CssClass="btn btn-primary" />
                 </div>
             </div>
 

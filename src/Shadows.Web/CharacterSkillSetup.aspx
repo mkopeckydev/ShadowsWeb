@@ -16,8 +16,8 @@
                     <asp:CheckBox ID="chbIsDeadFilter" runat="server" Text="Skrýt mrtvé postavy" AutoPostBack="true" OnCheckedChanged="chbIsDeadFilter_CheckedChanged" CssClass="chb" />
                 </div>
                 <div class="mb-1">
-                    <asp:Button ID="btnNew" runat="server" Text="Nový záznam" OnClick="btnNew_Click" CssClass="btn btn-primary" />
-                    <asp:Button ID="btnGenerateAll" runat="server" Text="Vygenerovat chybějící hody" OnClick="btnGenerateAll_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnNew" runat="server" Text="Nový záznam" OnClick="New_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnGenerateAll" runat="server" Text="Vygenerovat chybějící hody" OnClick="GenerateAll_Click" CssClass="btn btn-primary" />
                 </div>
             </asp:Panel>
 
@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
 
-                    <asp:Repeater ID="rptItems" runat="server" OnItemCommand="rptItems_ItemCommand">
+                    <asp:Repeater ID="rptItems" runat="server" OnItemCommand="Items_ItemCommand">
                         <ItemTemplate>
                             <tr>
                                 <td class="align-middle"><%# Eval("CharacterName")%></td>
@@ -77,7 +77,7 @@
                     </tr>
                     <tr>
                         <td class="text-end" colspan="2">
-                            <asp:Button ID="btnSave" runat="server" Text="Uložit" UseSubmitBehavior="false" OnClick="btnSave_Click" CssClass="btn btn-primary" />
+                            <asp:Button ID="btnSave" runat="server" Text="Uložit" UseSubmitBehavior="false" OnClick="Save_Click" CssClass="btn btn-primary" />
                             <asp:Button ID="btnCancel" runat="server" Text="Zavřít" CssClass="btn btn-secondary" />
                         </td>
                     </tr>

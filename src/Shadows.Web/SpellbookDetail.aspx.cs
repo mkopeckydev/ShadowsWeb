@@ -26,7 +26,7 @@ public partial class SpellbookDetail : CustomWebPage
             }
             else
             {
-                btnClose_Click(null, null);
+                Close_Click(null, null);
             }
 
             if (EditId > 0)
@@ -56,12 +56,12 @@ public partial class SpellbookDetail : CustomWebPage
         }
     }
 
-    protected void btnClose_Click(object sender, EventArgs e)
+    protected void Close_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Spellbook.aspx", true);
     }
 
-    protected void btnSaveSpellbookItemNote_Click(object sender, EventArgs e)
+    protected void SaveSpellbookItemNote_Click(object sender, EventArgs e)
     {
         lblSaveSpellbookItemNote.Text = "Uloženo<br />";
 

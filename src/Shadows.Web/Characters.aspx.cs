@@ -18,7 +18,7 @@ public partial class Characters : CustomWebPage
         if (!IsPostBack)
         {
             BusinessFacade<CharacterClass> fCharacterClass = new BusinessFacade<CharacterClass>(NHibernateSession);
-            List<CharacterClass> chars = fCharacterClass.GetListEntities("Caption", true, String.Empty, 0, true);
+            List<CharacterClass> chars = fCharacterClass.GetListEntities("Caption", true, String.Empty, true);
             ddlIdCharacterClass.DataSource = chars;
             ddlIdCharacterClass.DataBind();
             ddlIdCharacterClass2.DataSource = chars;
@@ -41,7 +41,7 @@ public partial class Characters : CustomWebPage
         rptItems.DataBind();
     }
 
-    protected void btnNew_Click(object sender, EventArgs e)
+    protected void New_Click(object sender, EventArgs e)
     {
         EditId = BaseEntity.NEW_OBJECT_ID;
         txtName.Text = String.Empty;
@@ -58,7 +58,7 @@ public partial class Characters : CustomWebPage
         detailPopup.Show();
     }
 
-    protected void btnSave_Click(object sender, EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         BusinessFacade<Character> fCharacter = new BusinessFacade<Character>(NHibernateSession);
 
@@ -73,9 +73,11 @@ public partial class Characters : CustomWebPage
         ch.Password = txtPassword.Text;
         ch.ClientMessage = txtClientMessage.Text;
 
-        int tmp = 0;
-        Int32.TryParse(txtIntelligenceBonus.Text, out tmp);
-        ch.IntelligenceBonus = tmp;
+        int tmp;
+        if (Int32.TryParse(txtIntelligenceBonus.Text, out tmp))
+        {
+            ch.IntelligenceBonus = tmp;
+        }
 
         ch.Administrator = chbAdministrator.Checked;
         ch.IsDead = chbIsDead.Checked;
@@ -91,7 +93,7 @@ public partial class Characters : CustomWebPage
         ReloadData();
     }
 
-    protected void rptItems_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void Items_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         int id = Convert.ToInt32(e.CommandArgument);
         BusinessFacade<Character> fCharacter = new BusinessFacade<Character>(NHibernateSession);

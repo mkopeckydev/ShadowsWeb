@@ -31,7 +31,7 @@ public partial class _Default : CustomWebPage
             btnNew.Visible = ch.Administrator;
 
             BusinessFacade<CharacterSkillLevel> fCharacterSkillLevel = new BusinessFacade<CharacterSkillLevel>(NHibernateSession);
-            List<CharacterSkillLevel> l = fCharacterSkillLevel.GetListEntities("Skill", true, String.Format("(IdCharacter = {0})", ApplicationSession.GetUserId()), 0, true);
+            List<CharacterSkillLevel> l = fCharacterSkillLevel.GetListEntities("Skill", true, String.Format("(IdCharacter = {0})", ApplicationSession.GetUserId()), true);
             ddlSearchSkill.DataSource = l;
             ddlSearchSkill.DataBind();
 
@@ -43,8 +43,8 @@ public partial class _Default : CustomWebPage
     }
     #endregion
 
-    #region btnPrint_Click
-    protected void btnPrint_Click(object sender, EventArgs e)
+    #region Print_Click
+    protected void Print_Click(object sender, EventArgs e)
     {
         if (ddlSearchSkill.SelectedIndex > -1)
         {
@@ -70,7 +70,7 @@ public partial class _Default : CustomWebPage
     #endregion
 
     #region Reload
-    protected void btnSearch_Click(object sender, EventArgs e)
+    protected void Search_Click(object sender, EventArgs e)
     {
         Reload();
     }
@@ -102,7 +102,7 @@ public partial class _Default : CustomWebPage
     #endregion
 
     #region RepeaterEvents
-    protected void rptItems_ItemCreated(object sender, RepeaterItemEventArgs e)
+    protected void Items_ItemCreated(object sender, RepeaterItemEventArgs e)
     {
         LinkButton b = (LinkButton)e.Item.FindControl("btnEditRow");
         if (b != null) b.Visible = _tmpAdmin;
@@ -110,7 +110,7 @@ public partial class _Default : CustomWebPage
         if (b != null) b.Visible = _tmpAdmin;
     }
 
-    protected void rptItems_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void Items_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         int id = Convert.ToInt32(e.CommandArgument);
 
@@ -141,7 +141,7 @@ public partial class _Default : CustomWebPage
         }
     }
 
-    protected void rptItems_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    protected void Items_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         Item i = (Item)e.Item.DataItem;
         if (i != null)
@@ -154,17 +154,17 @@ public partial class _Default : CustomWebPage
     #endregion
 
     #region Buttons
-    protected void btnNew_Click(object sender, EventArgs e)
+    protected void New_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Edit.aspx", true);
     }
 
-    protected void btnValues_Click(object sender, EventArgs e)
+    protected void Values_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Values.aspx", true);
     }
 
-    protected void btnSkils_Click(object sender, EventArgs e)
+    protected void Skils_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/CharacterSkillSetup.aspx", true);
     }

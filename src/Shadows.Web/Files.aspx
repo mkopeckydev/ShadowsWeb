@@ -18,7 +18,7 @@
                 </tr>
                 <tr>
                     <td class="text-center">
-                        <asp:Button ID="btnUpload" runat="server" Text="Nahrát na server" OnClick="btnUpload_Click" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnUpload" runat="server" Text="Nahrát na server" OnClick="Upload_Click" CssClass="btn btn-primary" />
                     </td>
                 </tr>
             </table>
@@ -37,7 +37,7 @@
                         </tr>
                     </thead>
 
-                    <asp:Repeater ID="rptItems" runat="server" OnItemCommand="rptItems_ItemCommand">
+                    <asp:Repeater ID="rptItems" runat="server" OnItemCommand="Items_ItemCommand">
                         <ItemTemplate>
                             <tr>
                                 <td>
@@ -72,7 +72,7 @@
                     </tr>
                     <tr>
                         <td class="text-end">
-                            <asp:Button ID="btnSave" runat="server" Text="Uložit" UseSubmitBehavior="false" OnClick="btnSave_Click" CssClass="btn btn-primary" />
+                            <asp:Button ID="btnSave" runat="server" Text="Uložit" UseSubmitBehavior="false" OnClick="Save_Click" CssClass="btn btn-primary" />
                             <asp:Button ID="btnCancel" runat="server" Text="Zavřít" CssClass="btn btn-secondary" />
                         </td>
                     </tr>

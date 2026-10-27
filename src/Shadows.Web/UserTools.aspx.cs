@@ -36,7 +36,7 @@ public partial class UserTools : CustomWebPage
         }
     }
 
-    protected void btnUploadCopy_Click(object sender, EventArgs e)
+    protected void UploadCopy_Click(object sender, EventArgs e)
     {
         if (fuUploadCopy.HasFile)
         {
@@ -55,7 +55,7 @@ public partial class UserTools : CustomWebPage
         }
     }
 
-    protected void btnProcessCopy_Click(object sender, EventArgs e)
+    protected void ProcessCopy_Click(object sender, EventArgs e)
     {
         if (fuProcessCopy.HasFile)
         {

@@ -9940,9 +9940,10 @@
         </member>
         <member name="T:NHibernate.Dialect.DB2400Dialect">
             <summary>
-            An SQL dialect for DB2 on iSeries OS/400.
+            An SQL dialect for DB2 on IBM i (formerly iSeries, formerly OS/400).
             </summary>
             <remarks>
+            <para>
             The DB2400Dialect defaults the following configuration properties:
             <list type="table">
             	<listheader>
@@ -9954,13 +9955,26 @@
             		<description><see cref="T:NHibernate.Driver.DB2400Driver" /></description>
             	</item>
             </list>
+            </para>
+            <para>
+            Two DB2 engines exist. One for Linux, UNIX and Windows, see <see cref="T:NHibernate.Dialect.DB2Dialect" />,
+            and another one for the IBM i system.
+            </para>
             </remarks>
+        </member>
+        <member name="P:NHibernate.Dialect.DB2400Dialect.UseNPrefixForUnicodeStrings">
+            <remarks>
+            <see langword="true" /> by default for DB2400, <see cref="M:NHibernate.Dialect.DB2Dialect.ToStringLiteral(System.String,NHibernate.SqlTypes.SqlType)" /> implementation and
+            <see href="https://www.ibm.com/docs/en/i/7.6.0?topic=constants-graphic-string#rbafzgraphicconst__title__3" />.
+            </remarks>
+            <inheritdoc />
         </member>
         <member name="T:NHibernate.Dialect.DB2Dialect">
             <summary>
-            An SQL dialect for DB2.
+            An SQL dialect for DB2 for Linux, UNIX and Windows.
             </summary>
             <remarks>
+            <para>
             The DB2Dialect defaults the following configuration properties:
             <list type="table">
             	<listheader>
@@ -9972,6 +9986,11 @@
             		<description><see cref="T:NHibernate.Driver.DB2Driver" /></description>
             	</item>
             </list>
+            </para>
+            <para>
+            Two DB2 engines exist. One for Linux, UNIX and Windows, and another one for the IBM i system
+            (formerly OS/400). For this other engine, see <see cref="T:NHibernate.Dialect.DB2400Dialect" />.
+            </para>
             </remarks>
         </member>
         <member name="M:NHibernate.Dialect.DB2Dialect.#ctor">
@@ -10017,6 +10036,13 @@
             <summary></summary>
         </member>
         <member name="P:NHibernate.Dialect.DB2Dialect.MaxAliasLength">
+            <inheritdoc />
+        </member>
+        <member name="P:NHibernate.Dialect.DB2Dialect.UseNPrefixForUnicodeStrings">
+            <remarks>
+            <see langword="false" /> for DB2 for Linux, UNIX and Windows.<br />
+            DB2 for Linux, UNIX and Windows supports Unicode string literals with the U&amp; prefix instead.
+            </remarks>
             <inheritdoc />
         </member>
         <member name="M:NHibernate.Dialect.DB2Dialect.ToStringLiteral(System.String,NHibernate.SqlTypes.SqlType)">
@@ -45732,6 +45758,12 @@
             <see cref="T:NHibernate.Loader.BatchFetchStyle"/> to use.
             </summary> 
         </member>
+        <member name="F:NHibernate.Cfg.Environment.SerializationStrategy">
+            <summary>
+            The class name of the serialization strategy implementation, implementing
+            <see cref="T:NHibernate.Util.ISerializationStrategy"/>.
+            </summary>
+        </member>
         <member name="F:NHibernate.Cfg.Environment.LinqToHqlLegacyPreEvaluation">
             <summary>
             Whether to use the legacy pre-evaluation or not in Linq queries. <c>true</c> by default.
@@ -58632,6 +58664,30 @@
             </remarks>
             <returns>A new array containing all elements from <paramref name="array"/> and a <paramref name="value"/> at the end.</returns>
         </member>
+        <member name="T:NHibernate.Util.BinaryFormatterSerializationStrategy">
+            <summary>
+            Legacy serialization strategy based on <see cref="T:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"/>.
+            </summary>
+            <remarks>
+            This strategy is not available on .NET 9.0 or greater, where <see cref="T:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"/>
+            has been removed from the framework. Applications targeting those frameworks must provide
+            their own <see cref="T:NHibernate.Util.ISerializationStrategy"/> implementation.
+            </remarks>
+        </member>
+        <member name="M:NHibernate.Util.BinaryFormatterSerializationStrategy.Serialize(System.Object)">
+            <summary>
+            Serializes the given value with <see cref="T:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"/>.
+            </summary>
+            <param name="value">The value to serialize.</param>
+            <returns>The serialized payload.</returns>
+        </member>
+        <member name="M:NHibernate.Util.BinaryFormatterSerializationStrategy.Deserialize(System.Byte[])">
+            <summary>
+            Deserializes a value with <see cref="T:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"/>.
+            </summary>
+            <param name="data">The serialized payload.</param>
+            <returns>The deserialized value.</returns>
+        </member>
         <member name="T:NHibernate.Util.CollectionHelper.EmptyMapClass">
             <summary>
             A read-only dictionary that is always empty and permits lookup by <see langword="null" /> key.
@@ -59066,6 +59122,25 @@
             <summary> 
             Set implementation that use reference equals instead of Equals() as its comparison mechanism.
             </summary>
+        </member>
+        <member name="T:NHibernate.Util.ISerializationStrategy">
+            <summary>
+            Defines how NHibernate serializes and deserializes objects for serialization-based features.
+            </summary>
+        </member>
+        <member name="M:NHibernate.Util.ISerializationStrategy.Serialize(System.Object)">
+            <summary>
+            Serializes the given value to a binary payload.
+            </summary>
+            <param name="value">The value to serialize.</param>
+            <returns>The serialized payload.</returns>
+        </member>
+        <member name="M:NHibernate.Util.ISerializationStrategy.Deserialize(System.Byte[])">
+            <summary>
+            Deserializes a value from the given binary payload.
+            </summary>
+            <param name="data">The serialized payload.</param>
+            <returns>The deserialized value.</returns>
         </member>
         <member name="T:NHibernate.Util.JoinedEnumerable">
             <summary>
@@ -59804,6 +59879,16 @@
             Return the full DictionaryEntry
             </summary>
         </member>
+        <member name="T:NHibernate.Util.SerializationConfiguration">
+            <summary>
+            Global serialization configuration used by NHibernate serialization features.
+            </summary>
+        </member>
+        <member name="P:NHibernate.Util.SerializationConfiguration.Strategy">
+            <summary>
+            Gets or sets the active serialization strategy used by NHibernate.
+            </summary>
+        </member>
         <member name="T:NHibernate.Util.SimpleMRUCache">
             <summary> 
             Cache following a "Most Recently Used" (MRU) algorithm for maintaining a
@@ -60103,6 +60188,25 @@
             <param name="str"></param>
             <param name="delim"></param>
             <param name="returnDelims"></param>
+        </member>
+        <member name="T:NHibernate.Util.ThrowingSerializationStrategy">
+            <summary>
+            Secure-by-default serialization strategy that requires applications to opt in explicitly.
+            </summary>
+        </member>
+        <member name="M:NHibernate.Util.ThrowingSerializationStrategy.Serialize(System.Object)">
+            <summary>
+            Always throws because no serialization strategy is configured.
+            </summary>
+            <param name="value">Ignored.</param>
+            <returns>Never returns.</returns>
+        </member>
+        <member name="M:NHibernate.Util.ThrowingSerializationStrategy.Deserialize(System.Byte[])">
+            <summary>
+            Always throws because no serialization strategy is configured.
+            </summary>
+            <param name="data">Ignored.</param>
+            <returns>Never returns.</returns>
         </member>
         <member name="T:NHibernate.Util.UnmodifiableDictionary`2">
             <summary>

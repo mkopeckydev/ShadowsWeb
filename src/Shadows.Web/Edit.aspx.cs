@@ -25,7 +25,7 @@ public partial class Edit : CustomWebPage
             ddlSkill.DataBind();
 
             BusinessFacade<CharacterClass> fCharacterClass = new BusinessFacade<CharacterClass>(NHibernateSession);
-            List<CharacterClass> chars = fCharacterClass.GetListEntities("Caption", true, String.Empty, 0, true);
+            List<CharacterClass> chars = fCharacterClass.GetListEntities("Caption", true, String.Empty, true);
             ddlIdCharacterClass.DataSource = chars;
             ddlIdCharacterClass.DataBind();
 
@@ -73,7 +73,7 @@ public partial class Edit : CustomWebPage
 
                 BusinessFacade<ItemRow> fItemRow = new BusinessFacade<ItemRow>(NHibernateSession);
                 List<ItemRow> rows = fItemRow.GetListEntities("InfoLevel", true, String.Format("(IdItem = {0})", i.Id));
-                setRows(rows);
+                SetRows(rows);
                 ReloadRows();
 
                 upValues.Visible = true;
@@ -87,7 +87,7 @@ public partial class Edit : CustomWebPage
                 txtCaption.Text = String.Empty;
                 imgDetail.Visible = false;
 
-                setRows(new List<ItemRow>());
+                SetRows(new List<ItemRow>());
 
                 ReloadRows();
 
@@ -96,7 +96,7 @@ public partial class Edit : CustomWebPage
         }
     }
 
-    private List<ItemRow> getRows()
+    private List<ItemRow> GetRows()
     {
         object obj = ApplicationSession.GetValue("Edit_ItemRowList");
         if (obj != null)
@@ -108,7 +108,7 @@ public partial class Edit : CustomWebPage
             return new List<ItemRow>();
         }
     }
-    private void setRows(List<ItemRow> list)
+    private void SetRows(List<ItemRow> list)
     {
         ApplicationSession.SetValue(list, "Edit_ItemRowList");
     }
@@ -118,7 +118,7 @@ public partial class Edit : CustomWebPage
 
     private void ReloadRows()
     {
-        List<ItemRow> l = getRows();
+        List<ItemRow> l = GetRows();
         rptRows.DataSource = l;
         rptRows.Visible = (l.Count > 0);
         rptRows.DataBind();
@@ -141,7 +141,7 @@ public partial class Edit : CustomWebPage
         return values;
     }
 
-    protected void btnSave_Click(object sender, EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         BusinessFacade<Item> fItem = new BusinessFacade<Item>(NHibernateSession);
         BusinessFacade<ItemRow> fItemRow = new BusinessFacade<ItemRow>(NHibernateSession);
@@ -164,7 +164,7 @@ public partial class Edit : CustomWebPage
 
         fItem.SaveEntity(i);
 
-        List<ItemRow> rows = getRows();
+        List<ItemRow> rows = GetRows();
 
         foreach(ItemRow row in rows)
         {
@@ -184,7 +184,7 @@ public partial class Edit : CustomWebPage
         Response.Redirect("~/Default.aspx", true);
     }
 
-    protected void btnClose_Click(object sender, EventArgs e)
+    protected void Close_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Default.aspx", true);
     }
@@ -248,18 +248,18 @@ public partial class Edit : CustomWebPage
 
     #region Rows
 
-    protected void rptRows_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void Rows_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         string guid = Convert.ToString(e.CommandArgument);
 
         BusinessFacade<ItemRow> fItemRow = new BusinessFacade<ItemRow>(NHibernateSession);
-        List<ItemRow> list = getRows();
+        List<ItemRow> list = GetRows();
         ItemRow i = fItemRow.FindEntityInList(guid, list);
 
         if (e.CommandName == "DeleteRow")
         {
             i.Delete = true;
-            setRows(list);
+            SetRows(list);
             ReloadRows();
         }
         else if (e.CommandName == "EditRow")
@@ -278,7 +278,7 @@ public partial class Edit : CustomWebPage
         }
     }
 
-    protected void rptRows_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    protected void Rows_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         ItemRow row = (ItemRow)e.Item.DataItem;
         if (row != null)
@@ -288,7 +288,7 @@ public partial class Edit : CustomWebPage
         }
     }
 
-    protected void btnNewRow_Click(object sender, EventArgs e)
+    protected void NewRow_Click(object sender, EventArgs e)
     {
         //novy radek
         EditDetailGuid = String.Empty;
@@ -300,10 +300,10 @@ public partial class Edit : CustomWebPage
         detailPopup.Show();
     }
 
-    protected void btnSaveRow_Click(object sender, EventArgs e)
+    protected void SaveRow_Click(object sender, EventArgs e)
     {
         BusinessFacade<ItemRow> fItemRow = new BusinessFacade<ItemRow>(NHibernateSession);
-        List<ItemRow> list = getRows();
+        List<ItemRow> list = GetRows();
 
         ItemRow i = new ItemRow();
         if (!String.IsNullOrEmpty(EditDetailGuid))
@@ -327,14 +327,14 @@ public partial class Edit : CustomWebPage
 
         list = list.OrderBy(o => o.InfoLevel).ToList();
 
-        setRows(list);
+        SetRows(list);
         ReloadRows();
     }
     #endregion
 
     #region Values
 
-    protected void btnNewValue_Click(object sender, EventArgs e)
+    protected void NewValue_Click(object sender, EventArgs e)
     {
         EditDetailId = 0;
         txtCharacterValue.Text = String.Empty;
@@ -343,7 +343,7 @@ public partial class Edit : CustomWebPage
         detailPopupValues.Show();
     }
 
-    protected void btnSaveValue_Click(object sender, EventArgs e)
+    protected void SaveValue_Click(object sender, EventArgs e)
     {
         BusinessFacade<CharacterItemValue> fCharacterItemValue = new BusinessFacade<CharacterItemValue>(NHibernateSession);
 
@@ -353,11 +353,10 @@ public partial class Edit : CustomWebPage
             i = fCharacterItemValue.GetEntity(EditDetailId);
         }
 
-        int tmp = 0;
+        int tmp;
         Int32.TryParse(txtCharacterValue.Text, out tmp);
         i.CharacterValue = tmp;
 
-        tmp = 0;
         Int32.TryParse(txtCharacterBonus.Text, out tmp);
         i.CharacterBonus = tmp;
 
@@ -370,7 +369,7 @@ public partial class Edit : CustomWebPage
         ReloadValues();
     }
 
-    protected void rptValues_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    protected void Values_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         CharacterItemValue row = (CharacterItemValue)e.Item.DataItem;
         if (row != null)
@@ -380,7 +379,7 @@ public partial class Edit : CustomWebPage
         }
     }
 
-    protected void rptValues_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void Values_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         int id = Convert.ToInt32(e.CommandArgument);
 
@@ -403,7 +402,7 @@ public partial class Edit : CustomWebPage
         }
     }
 
-    protected void btnGenerateValues_Click(object sender, EventArgs e)
+    protected void GenerateValues_Click(object sender, EventArgs e)
     {
         //automaticke doplneni hodu kostkou pro vsechny ostatni postavy
         BusinessFacade<Character> fCharacter = new BusinessFacade<Character>(NHibernateSession);
@@ -428,13 +427,15 @@ public partial class Edit : CustomWebPage
 
             if (createValue)
             {
-                CharacterItemValue newVal = new CharacterItemValue();
-                newVal.IdCharacter = ch.Id;
-                newVal.IdItem = EditId;
-                newVal.CharacterValue = dice.Get3k6();
-                newVal.CharacterBonus = 0;
-                newVal.Character = ch.Name;
-                newVal.IsDead = ch.IsDead;
+                var newVal = new CharacterItemValue
+                {
+                    IdCharacter = ch.Id,
+                    IdItem = EditId,
+                    CharacterValue = dice.Get3k6(),
+                    CharacterBonus = 0,
+                    Character = ch.Name,
+                    IsDead = ch.IsDead
+                };
 
                 fCharacterItemValue.SaveEntity(newVal);
             }

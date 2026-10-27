@@ -16,7 +16,7 @@
             <asp:FileUpload ID="fuUploadCopy" runat="server" CssClass="form-control text-start w-100" />
         </div>
         <div class="mb-1">
-            <asp:Button ID="btnUploadCopy" runat="server" Text="Načíst deník" OnClick="btnUploadCopy_Click" CssClass="btn btn-primary" />
+            <asp:Button ID="btnUploadCopy" runat="server" Text="Načíst deník" OnClick="UploadCopy_Click" CssClass="btn btn-primary" />
         </div>
     </asp:Panel>
 
@@ -32,7 +32,7 @@
             <asp:FileUpload ID="fuProcessCopy" runat="server" CssClass="form-control text-start w-100" />
         </div>
         <div class="mb-1">
-            <asp:Button ID="btnProcessCopy" runat="server" Text="Vyplnit deník" OnClick="btnProcessCopy_Click" CssClass="btn btn-primary" />
+            <asp:Button ID="btnProcessCopy" runat="server" Text="Vyplnit deník" OnClick="ProcessCopy_Click" CssClass="btn btn-primary" />
         </div>
     </asp:Panel>
 

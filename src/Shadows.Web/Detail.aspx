@@ -15,7 +15,7 @@
             <asp:Label ID="lblBonusLevel" runat="server" Text=""></asp:Label>
         </div>
         <div class="mb-1">
-            <asp:Button ID="btnClose" runat="server" Text="Zavřít" OnClick="btnClose_Click" CssClass="btn btn-primary" />
+            <asp:Button ID="btnClose" runat="server" Text="Zavřít" OnClick="Close_Click" CssClass="btn btn-primary" />
         </div>
     </asp:Panel>
 
@@ -48,7 +48,7 @@
                 </div>
                 <div class="text-center mb-1">
                     <asp:Label ID="lblSaveItemNote" runat="server" Text="" CssClass="err-message me-1"></asp:Label>
-                    <asp:Button ID="btnSaveItemNote" runat="server" Text="Uložit" OnClick="btnSaveItemNote_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnSaveItemNote" runat="server" Text="Uložit" OnClick="SaveItemNote_Click" CssClass="btn btn-primary" />
                 </div>
             </div>
 
