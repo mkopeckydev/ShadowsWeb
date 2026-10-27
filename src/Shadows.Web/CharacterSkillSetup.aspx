@@ -4,22 +4,22 @@
 
 <asp:Content ID="cphMain" runat="server" ContentPlaceHolderID="contentBody">
 
+    <asp:Panel ID="pnlHeader" runat="server" CssClass="app-panel text-center">
+        <div class="mb-1">
+            <h1>
+                <asp:Label ID="lblCaption" runat="server" Text="Dovednosti postavy"></asp:Label></h1>
+        </div>
+        <div class="mb-1">
+            <asp:DropDownList ID="ddlSearchCharacter" runat="server" class="form-select mx-auto" Style="max-width: 300px;" DataValueField="Id" DataTextField="Name" AutoPostBack="true" OnSelectedIndexChanged="SearchCharacter_SelectedIndexChanged"></asp:DropDownList>
+        </div>
+        <div class="mb-1">
+            <asp:Button ID="btnNew" runat="server" Text="Nový záznam" OnClick="New_Click" CssClass="btn btn-primary" />
+            <asp:Button ID="btnGenerateAll" runat="server" Text="Vygenerovat chybějící hody" OnClick="GenerateAll_Click" CssClass="btn btn-primary" />
+        </div>
+    </asp:Panel>
+
     <asp:UpdatePanel ID="upMain" runat="server">
         <ContentTemplate>
-
-            <asp:Panel ID="pnlHeader" runat="server" CssClass="app-panel text-center">
-                <div class="mb-1">
-                    <h1>
-                        <asp:Label ID="lblCaption" runat="server" Text="Dovednosti postav"></asp:Label></h1>
-                </div>
-                <div class="mb-1">
-                    <asp:CheckBox ID="chbIsDeadFilter" runat="server" Text="Skrýt mrtvé postavy" AutoPostBack="true" OnCheckedChanged="chbIsDeadFilter_CheckedChanged" CssClass="chb" />
-                </div>
-                <div class="mb-1">
-                    <asp:Button ID="btnNew" runat="server" Text="Nový záznam" OnClick="New_Click" CssClass="btn btn-primary" />
-                    <asp:Button ID="btnGenerateAll" runat="server" Text="Vygenerovat chybějící hody" OnClick="GenerateAll_Click" CssClass="btn btn-primary" />
-                </div>
-            </asp:Panel>
 
             <div class="app-panel">
 

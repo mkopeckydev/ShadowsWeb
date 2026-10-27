@@ -12,11 +12,19 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : CustomWebPage
 {
-    private string SKILL = "SKILL";
-    private string TEXT = "TEXT";
+    private const string SEARCH_SKILL = "Default.SearchSkill";
+    private const string SEARCH_TEXT = "Default.SearchText";
+    private const string PAGE_SIZE = "Default.PageSize";
+    private const string PAGE_INDEX = "Default.PageIndex";
 
     private bool _tmpAdmin;
     private bool _tmpShowImage;
+
+    private int CurrentPageIndex
+    {
+        get { return (int)(ViewState["CurrentPageIndex"] ?? 0); }
+        set { ViewState["CurrentPageIndex"] = value; }
+    }
 
     #region Page_Load
     protected void Page_Load(object sender, EventArgs e)
@@ -35,8 +43,12 @@ public partial class _Default : CustomWebPage
             ddlSearchSkill.DataSource = l;
             ddlSearchSkill.DataBind();
 
-            ControlsTools.SetDDL(ddlSearchSkill, ApplicationSession.GetValueInt(SKILL));
-            txtSearchText.Text = ApplicationSession.GetValueString(TEXT);
+            ControlsTools.SetDDL(ddlSearchSkill, ApplicationSession.GetValueInt(SEARCH_SKILL));
+            txtSearchText.Text = ApplicationSession.GetValueString(SEARCH_TEXT);
+            object savedPageSize = ApplicationSession.GetValue(PAGE_SIZE);
+            if (savedPageSize != null && ddlPageSize.Items.FindByValue(savedPageSize.ToString()) != null)
+                ddlPageSize.SelectedValue = savedPageSize.ToString();
+            CurrentPageIndex = ApplicationSession.GetValueInt(PAGE_INDEX);
 
             Reload();
         }
@@ -72,6 +84,25 @@ public partial class _Default : CustomWebPage
     #region Reload
     protected void Search_Click(object sender, EventArgs e)
     {
+        if (sender != chbShowImages) CurrentPageIndex = 0;
+        Reload();
+    }
+
+    protected void PreviousPage_Click(object sender, EventArgs e)
+    {
+        CurrentPageIndex = Math.Max(0, CurrentPageIndex - 1);
+        Reload();
+    }
+
+    protected void NextPage_Click(object sender, EventArgs e)
+    {
+        CurrentPageIndex++;
+        Reload();
+    }
+
+    protected void PageSize_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        CurrentPageIndex = 0;
         Reload();
     }
 
@@ -80,8 +111,8 @@ public partial class _Default : CustomWebPage
         int idSkill = Convert.ToInt32(ddlSearchSkill.SelectedValue);
         string searchText = txtSearchText.Text.Trim();
 
-        ApplicationSession.SetValue(idSkill, SKILL);
-        ApplicationSession.SetValue(searchText, TEXT);
+        ApplicationSession.SetValue(idSkill, SEARCH_SKILL);
+        ApplicationSession.SetValue(searchText, SEARCH_TEXT);
 
         Character character = ApplicationSession.GetUser();
 
@@ -91,11 +122,26 @@ public partial class _Default : CustomWebPage
         _tmpAdmin = character.Administrator;
         _tmpShowImage = chbShowImages.Checked;
 
-        rptItems.DataSource = list;
+        PagedDataSource pagedItems = new PagedDataSource
+        {
+            DataSource = list
+        };
+        int pageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
+        pagedItems.AllowPaging = pageSize > 0;
+        if (pagedItems.AllowPaging) pagedItems.PageSize = pageSize;
+        CurrentPageIndex = Math.Min(CurrentPageIndex, Math.Max(0, pagedItems.PageCount - 1));
+        pagedItems.CurrentPageIndex = CurrentPageIndex;
+        ApplicationSession.SetValue(pageSize, PAGE_SIZE);
+        ApplicationSession.SetValue(CurrentPageIndex, PAGE_INDEX);
+
+        rptItems.DataSource = pagedItems;
         rptItems.DataBind();
 
         rptItems.Visible = (list.Count > 0);
         lblRowsCountInfo.Text = String.Format("Počet položek: {0}", list.Count);
+        lblPageInfo.Text = String.Format("Stránka {0} z {1}", list.Count > 0 ? CurrentPageIndex + 1 : 0, list.Count > 0 ? pagedItems.PageCount : 0);
+        btnPreviousPage.Enabled = list.Count > 0 && !pagedItems.IsFirstPage;
+        btnNextPage.Enabled = list.Count > 0 && !pagedItems.IsLastPage;
 
         return list;
     }
@@ -169,8 +215,9 @@ public partial class _Default : CustomWebPage
         Response.Redirect("~/CharacterSkillSetup.aspx", true);
     }
 
-    protected void ddlSearchSkill_SelectedIndexChanged(object sender, EventArgs e)
+    protected void SearchSkill_SelectedIndexChanged(object sender, EventArgs e)
     {
+        CurrentPageIndex = 0;
         Reload();
     }
     #endregion

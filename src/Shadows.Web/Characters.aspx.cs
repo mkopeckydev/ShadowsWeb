@@ -123,7 +123,7 @@ public partial class Characters : CustomWebPage
         }
     }
 
-    protected void chbIsDeadFilter_CheckedChanged(object sender, EventArgs e)
+    protected void IsDeadFilter_CheckedChanged(object sender, EventArgs e)
     {
         ReloadData();
     }

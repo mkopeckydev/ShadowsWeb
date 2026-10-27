@@ -4,35 +4,55 @@
 
 <asp:Content ID="cphMain" runat="server" ContentPlaceHolderID="contentBody">
 
-    <asp:Panel ID="pnlHeader" runat="server" CssClass="app-panel">
+    <asp:Panel ID="pnlHeader" runat="server" DefaultButton="btnSearch">
+        <div class="app-panel">
+            <div class="mb-1 text-center">
+                <h1>Kniha kouzel</h1>
+            </div>
+            <div class="mb-1 app-float-panel">
+                <div class="float-start m-1 panel-control">
+                    <table class="w-100 form-table">
+                        <tr>
+                            <td>Hledat:</td>
+                            <td>
+                                <asp:TextBox ID="txtSearchText" runat="server" CssClass="form-control w-100"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Stupeň:</td>
+                            <td>
+                                <asp:TextBox ID="txtSearchLevel" runat="server" CssClass="form-control w-100"></asp:TextBox>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-        <div class="mb-1 text-center">
-            <h1>Kniha kouzel</h1>
+                <div class="float-end m-1">
+                    <asp:Button ID="btnSearch" runat="server" Text="Hledat" OnClick="Search_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnPrint" runat="server" Text="Tisk" OnClick="Print_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnNew" runat="server" Text="Nový záznam" ToolTip="Nový" OnClick="New_Click" CssClass="btn btn-primary" />
+                </div>
+            </div>
         </div>
-        <div class="mb-1 app-float-panel">
 
-            <div class="float-start m-1 panel-control">
-                <table class="w-100 form-table">
-                    <tr>
-                        <td>Hledat:</td>
-                        <td>
-                            <asp:TextBox ID="txtSearchText" runat="server" CssClass="form-control w-100"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Stupeň:</td>
-                        <td>
-                            <asp:TextBox ID="txtSearchLevel" runat="server" CssClass="form-control w-100"></asp:TextBox>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="float-end m-1">
-                <asp:Button ID="btnSearch" runat="server" Text="Hledat" OnClick="Search_Click" CssClass="btn btn-primary" />
-                <asp:Button ID="btnPrint" runat="server" Text="Tisk" OnClick="Print_Click" CssClass="btn btn-primary" />
-                <asp:Button ID="btnNew" runat="server" Text="Nový záznam" ToolTip="Nový" OnClick="New_Click" CssClass="btn btn-primary" />
-            </div>
+        <div class="app-panel text-center">
+            <asp:UpdatePanel ID="upPaging" runat="server">
+                <ContentTemplate>
+                    <nav aria-label="Stránkování záznamů" class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                        <asp:Button ID="btnPreviousPage" runat="server" Text="Předchozí" CssClass="btn btn-primary" OnClick="PreviousPage_Click" />
+                        <asp:Label ID="lblPageInfo" runat="server" />
+                        <asp:Button ID="btnNextPage" runat="server" Text="Další" CssClass="btn btn-primary" OnClick="NextPage_Click" />
+                        <asp:Label ID="lblPageSize" runat="server" AssociatedControlID="ddlPageSize" Text="Počet:" />
+                        <asp:DropDownList ID="ddlPageSize" runat="server" CssClass="form-select w-auto" AutoPostBack="true" OnSelectedIndexChanged="PageSize_SelectedIndexChanged">
+                            <asp:ListItem Text="Vše" Value="0" Selected="True" />
+                            <asp:ListItem Text="20" Value="20" />
+                            <asp:ListItem Text="50" Value="50" />
+                            <asp:ListItem Text="100" Value="100" />
+                            <asp:ListItem Text="200" Value="200" />
+                        </asp:DropDownList>
+                    </nav>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
 
     </asp:Panel>
@@ -70,6 +90,9 @@
                     </asp:Repeater>
 
                 </table>
+                <div class="text-center">
+                    <asp:Label runat="server" ID="lblRowsCountInfo"></asp:Label>
+                </div>
             </div>
 
 

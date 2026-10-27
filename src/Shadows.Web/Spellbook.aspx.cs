@@ -12,7 +12,18 @@ using System.Web.UI.WebControls;
 
 public partial class Spellbook : CustomWebPage
 {
+    private const string PAGE_SIZE = "Spellbook.PageSize";
+    private const string PAGE_INDEX = "Spellbook.PageIndex";
+    private const string SEARCH_TEXT = "Spellbook.SearchText";
+    private const string SEARCH_LEVEL = "Spellbook.SearchLevel";
+
     private bool _tmpAdmin;
+
+    private int CurrentPageIndex
+    {
+        get { return (int)(ViewState["CurrentPageIndex"] ?? 0); }
+        set { ViewState["CurrentPageIndex"] = value; }
+    }
 
     #region Page_Load
     protected void Page_Load(object sender, EventArgs e)
@@ -29,6 +40,12 @@ public partial class Spellbook : CustomWebPage
             chbVisibilityCharacters.DataBind();
 
             btnNew.Visible = ApplicationSession.IsAdmin;
+            txtSearchText.Text = ApplicationSession.GetValueString(SEARCH_TEXT);
+            txtSearchLevel.Text = ApplicationSession.GetValueString(SEARCH_LEVEL);
+            object savedPageSize = ApplicationSession.GetValue(PAGE_SIZE);
+            if (savedPageSize != null && ddlPageSize.Items.FindByValue(savedPageSize.ToString()) != null)
+                ddlPageSize.SelectedValue = savedPageSize.ToString();
+            CurrentPageIndex = ApplicationSession.GetValueInt(PAGE_INDEX);
             ReloadData();
         }
     }
@@ -44,10 +61,29 @@ public partial class Spellbook : CustomWebPage
         int searchLevel;
         Int32.TryParse(txtSearchLevel.Text, out searchLevel);   
 
+        ApplicationSession.SetValue(txtSearchText.Text, SEARCH_TEXT);
+        ApplicationSession.SetValue(txtSearchLevel.Text, SEARCH_LEVEL);
         List<SpellbookItem> spellbookItems = fSpellbookItem.Search(txtSearchText.Text, searchLevel, ApplicationSession.GetUser());
 
-        rptItems.DataSource = spellbookItems;
+        PagedDataSource pagedItems = new PagedDataSource
+        {
+            DataSource = spellbookItems
+        };
+        int pageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
+        pagedItems.AllowPaging = pageSize > 0;
+        if (pagedItems.AllowPaging) pagedItems.PageSize = pageSize;
+        CurrentPageIndex = Math.Min(CurrentPageIndex, Math.Max(0, pagedItems.PageCount - 1));
+        pagedItems.CurrentPageIndex = CurrentPageIndex;
+        ApplicationSession.SetValue(pageSize, PAGE_SIZE);
+        ApplicationSession.SetValue(CurrentPageIndex, PAGE_INDEX);
+
+        rptItems.DataSource = pagedItems;
         rptItems.DataBind();
+
+        lblRowsCountInfo.Text = String.Format("Počet položek: {0}", spellbookItems.Count);
+        lblPageInfo.Text = String.Format("Stránka {0} z {1}", spellbookItems.Count > 0 ? CurrentPageIndex + 1 : 0, spellbookItems.Count > 0 ? pagedItems.PageCount : 0);
+        btnPreviousPage.Enabled = spellbookItems.Count > 0 && !pagedItems.IsFirstPage;
+        btnNextPage.Enabled = spellbookItems.Count > 0 && !pagedItems.IsLastPage;
 
         return spellbookItems;
     }
@@ -160,9 +196,28 @@ public partial class Spellbook : CustomWebPage
     #region Search_Click
     protected void Search_Click(object sender, EventArgs e)
     {
+        CurrentPageIndex = 0;
         ReloadData();
     }
     #endregion
+
+    protected void PreviousPage_Click(object sender, EventArgs e)
+    {
+        CurrentPageIndex = Math.Max(0, CurrentPageIndex - 1);
+        ReloadData();
+    }
+
+    protected void NextPage_Click(object sender, EventArgs e)
+    {
+        CurrentPageIndex++;
+        ReloadData();
+    }
+
+    protected void PageSize_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        CurrentPageIndex = 0;
+        ReloadData();
+    }
 
     #region Items_ItemDataBound
     protected void Items_ItemDataBound(object sender, RepeaterItemEventArgs e)

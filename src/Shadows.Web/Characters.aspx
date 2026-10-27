@@ -13,7 +13,7 @@
                         <asp:Label ID="lblCaption" runat="server" Text="Postavy"></asp:Label></h1>
                 </div>
                 <div class="mb-1">
-                    <asp:CheckBox ID="chbIsDeadFilter" runat="server" Text="Skrýt mrtvé postavy" AutoPostBack="true" OnCheckedChanged="chbIsDeadFilter_CheckedChanged" CssClass="chb" />
+                    <asp:CheckBox ID="chbIsDeadFilter" runat="server" Text="Skrýt mrtvé postavy" AutoPostBack="true" OnCheckedChanged="IsDeadFilter_CheckedChanged" CssClass="chb" />
                 </div>
                 <div class="mb-1">
                     <asp:Button ID="btnNew" runat="server" Text="Nová postava" OnClick="New_Click" CssClass="btn btn-primary" />

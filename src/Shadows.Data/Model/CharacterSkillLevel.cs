@@ -13,7 +13,6 @@ namespace Shadows.Data.Model
         public int BonusLevel { get; set; }
 
         public string CharacterName { get; set; }
-        public bool CharacterIsDead { get; set; }
         public string Skill { get; set; }
         public string SkillLevel { get; set; }
         public int SkillLevelBonus { get; set; }

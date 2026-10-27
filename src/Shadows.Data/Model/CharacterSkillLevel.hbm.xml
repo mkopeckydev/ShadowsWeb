@@ -9,7 +9,6 @@
     <property name="IdSkillLevel" column="IdSkillLevel" />
     <property name="BonusLevel" column="BonusLevel" />
     <property name="CharacterName" not-null="false" update="false" insert="false" formula="(select Character.Name FROM Character WHERE Character.Id = IdCharacter)" />
-    <property name="CharacterIsDead" not-null="false" update="false" insert="false" formula="(select Character.IsDead FROM Character WHERE Character.Id = IdCharacter)" />
     <property name="Skill" not-null="false" update="false" insert="false" formula="(select Skill.Caption FROM Skill WHERE Skill.Id = IdSkill)" />
     <property name="SkillLevel" not-null="false" update="false" insert="false" formula="(select SkillLevel.Caption FROM SkillLevel WHERE SkillLevel.Id = IdSkillLevel)" />
     <property name="SkillLevelBonus" not-null="false" update="false" insert="false" formula="(select SkillLevel.Bonus FROM SkillLevel WHERE SkillLevel.Id = IdSkillLevel)" />
