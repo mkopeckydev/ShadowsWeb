@@ -82,6 +82,7 @@
                                 <td class="text-end">
                                     <asp:LinkButton ID="btnVisibility" runat="server" Text='<%# Eval("VisibilityLabel") %>' ToolTip="Viditelnost kouzla" CommandName="VisibilityRow" CommandArgument='<%# Eval("Id") %>' />
                                     <asp:LinkButton ID="btnShowRow" runat="server" Text="Zobrazit" ToolTip="Zobrazit" CommandName="ShowRow" CommandArgument='<%# Eval("Id") %>' />
+                                    <asp:LinkButton ID="btnPrintRow" runat="server" Text="Tisk" ToolTip="Tisk" CommandName="PrintRow" CommandArgument='<%# Eval("Id") %>' />
                                     <asp:LinkButton ID="btnEditRow" runat="server" Text="Editovat" ToolTip="Editovat" CommandName="EditRow" CommandArgument='<%# Eval("Id") %>' />
                                     <asp:LinkButton ID="btnDeleteRow" runat="server" Text="Smazat" ToolTip="Smazat" CommandName="DeleteRow" CommandArgument='<%# Eval("Id") %>' OnClientClick="return ConfirmDelete();" />
                                 </td>

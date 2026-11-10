@@ -51,6 +51,21 @@ public partial class Spellbook : CustomWebPage
     }
     #endregion
 
+    protected override void OnPreRender(EventArgs e)
+    {
+        base.OnPreRender(e);
+
+        ScriptManager scriptManager = ScriptManager.GetCurrent(Page);
+        if (scriptManager != null)
+        {
+            foreach (RepeaterItem item in rptItems.Items)
+            {
+                Control printButton = item.FindControl("btnPrintRow");
+                if (printButton != null) scriptManager.RegisterPostBackControl(printButton);
+            }
+        }
+    }
+
     #region ReloadData
     private List<SpellbookItem> ReloadData()
     {
@@ -110,6 +125,17 @@ public partial class Spellbook : CustomWebPage
         {
             int id = Convert.ToInt32(e.CommandArgument);
             Response.Redirect(String.Format("~/SpellbookEdit.aspx?id={0}", id), true);
+        }
+        else if (e.CommandName == "PrintRow")
+        {
+            int id = Convert.ToInt32(e.CommandArgument);
+            SpellbookItemFacade fSpellbookItem = new SpellbookItemFacade(NHibernateSession);
+            SpellbookItem item = fSpellbookItem.GetEntity(id);
+            
+            var list = new List<SpellbookItem>();
+            list.Add(item);
+
+            if (item != null) PrintItems(list);
         }
         else if (e.CommandName == "VisibilityRow")
         {
@@ -201,6 +227,7 @@ public partial class Spellbook : CustomWebPage
     }
     #endregion
 
+    #region Paging
     protected void PreviousPage_Click(object sender, EventArgs e)
     {
         CurrentPageIndex = Math.Max(0, CurrentPageIndex - 1);
@@ -218,6 +245,7 @@ public partial class Spellbook : CustomWebPage
         CurrentPageIndex = 0;
         ReloadData();
     }
+    #endregion
 
     #region Items_ItemDataBound
     protected void Items_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -234,12 +262,22 @@ public partial class Spellbook : CustomWebPage
     #region Print_Click
     protected void Print_Click(object sender, EventArgs e)
     {
+        PrintItems(ReloadData());
+    }
+
+    private void PrintItems(List<SpellbookItem> items)
+    {
         string fileName = "knihakouzel";
+
+        if (items.Count == 1)
+        {
+            fileName = String.Format("{0}_{1}", fileName, items[0].Id);
+        }
 
         BusinessFacade<Character> fCharacter = new BusinessFacade<Character>(NHibernateSession);
         Character ch = fCharacter.GetEntity(ApplicationSession.GetUserId());
 
-        MemoryStream ms = Print.GetReportSpellBook(ReloadData(), ch, this, NHibernateSession);
+        MemoryStream ms = Print.GetReportSpellBook(items, ch, this, NHibernateSession);
         ReturnPdfFile(ms, fileName);
     }
     #endregion
